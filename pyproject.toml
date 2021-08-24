@@ -13,7 +13,7 @@ build-backend = "setuptools.build_meta"
 build-verbosity = "3"
 
 build = "cp36-* cp37-* cp38-* cp39-*"
-skip = "*-win32 *-manylinux_i686"
+skip = "*-manylinux_i686"
 
 manylinux-x86_64-image = "manylinux2014"
 archs = "auto64"
