@@ -34,6 +34,7 @@ before-build = [
     "choco install tartool wget sed",
     "vcpkg install zlib",
     "vcpkg install freetype",
+    "vcpkg install cairo",
 ]
 
           
