@@ -191,7 +191,7 @@ class BuildRDKit(build_ext_orig):
                     f"-DBoost_NO_SYSTEM_PATHS=ON",
             
                     # deactivate cario for windows for now 
-                    # f"-DRDK_BUILD_CAIRO_SUPPORT=ON" if sys.platform != 'win32' else f"-DRDK_BUILD_CAIRO_SUPPORT=OFF",
+                    f"-DRDK_BUILD_CAIRO_SUPPORT=ON",
                     # for win 
                     f"-DCAIRO_INCLUDE_DIRS=C:\\vcpkg\\packages\\cairo_x86-windows\\include" if sys.platform == 'win32' else "",
                     f"-DCAIRO_LIBRARIES=C:\\vcpkg\\packages\\cairo_x86-windows\\lib" if sys.platform == 'win32' else "",
