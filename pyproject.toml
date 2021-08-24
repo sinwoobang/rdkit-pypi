@@ -31,7 +31,7 @@ repair-wheel-command = [
 
 [tool.cibuildwheel.windows]
 before-build = [
-    "choco install tartool wget sed",
+    "choco install tartool wget sed pkgconfiglite",
     "vcpkg install zlib",
     "vcpkg install cairo",
 ]
