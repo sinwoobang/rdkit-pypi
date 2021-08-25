@@ -178,6 +178,7 @@ class BuildRDKit(build_ext_orig):
         # Invoke cmake and compile RDKit
         options = [
                     f"-DCMAKE_TOOLCHAIN_FILE=C:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake" if sys.platform == 'win32' else "",
+                    f"-DBoost_DEBUG=1",
                     f'-DPYTHON_EXECUTABLE={sys.executable}',
                     f'-DPYTHON_INCLUDE_DIR={get_paths()["include"]}',
 
