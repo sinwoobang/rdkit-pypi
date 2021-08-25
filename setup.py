@@ -189,7 +189,7 @@ class BuildRDKit(build_ext_orig):
                     f"-DRDK_INSTALL_INTREE=OFF",
                                    
                     f"-DBOOST_ROOT={boost_install_path}",
-                    f"-DBoost_NO_SYSTEM_PATHS=ON",
+                    f"-DBoost_NO_SYSTEM_PATHS=OFF",
             
                     f"-DRDK_BUILD_CAIRO_SUPPORT=ON",
                     # for win 
