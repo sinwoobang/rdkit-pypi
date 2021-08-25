@@ -177,6 +177,7 @@ class BuildRDKit(build_ext_orig):
 
         # Invoke cmake and compile RDKit
         options = [
+                    f"-DCMAKE_TOOLCHAIN_FILE=C:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake" if sys.platform == 'win32' else "",
                     f'-DPYTHON_EXECUTABLE={sys.executable}',
                     f'-DPYTHON_INCLUDE_DIR={get_paths()["include"]}',
 
@@ -199,7 +200,7 @@ class BuildRDKit(build_ext_orig):
             
 #                     f"-DFREETYPE_INCLUDE_DIRS=C:\\vcpkg\\packages\\freetype_x86-windows\\include" if sys.platform == 'win32' else "",
 #                     f"-DFREETYPE_LIBRARIES=C:\\vcpkg\\packages\\freetype_x86-windows\\lib\\freetype.lib" if sys.platform == 'win32' else "",
-                    f"-DCMAKE_TOOLCHAIN_FILE=C:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake" if sys.platform == 'win32' else "",
+
             
                     f"-DCMAKE_INSTALL_PREFIX={rdkit_install_path}",
                     f"-DCMAKE_C_FLAGS=-Wno-implicit-function-declaration" if sys.platform != 'win32' else "",
