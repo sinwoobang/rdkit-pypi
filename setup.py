@@ -28,11 +28,9 @@ class BuildRDKit(build_ext_orig):
         print('I am here')
         for ext in self.extensions:
 
-            if sys.platform == 'win32':
-                self.install_cairo(ext)
-
             # Build boot
-            self.build_boost(ext)
+            if sys.platform != 'win32':
+                self.build_boost(ext)
 
             # Then RDKit
             self.build_rdkit(ext)
@@ -45,16 +43,6 @@ class BuildRDKit(build_ext_orig):
     def get_ext_filename(self, ext_name):
         ext_path = ext_name.split('.')
         return os.path.join(*ext_path)
-
-    def install_cairo(self, ext):
-        # For windows only
-        cmds = [
-            f'wget https://github.com/preshing/cairo-windows/releases/download/1.15.4/cairo-windows-1.15.4.zip --no-check-certificate --directory-prefix=C:\\',
-            f'powershell -command "Expand-Archive -Force C:\\cairo-windows-1.15.4.zip C:\\"',
-            ]
-
-        [check_call(c.split()) for c in cmds]
-
 
     def create_package(self, ext):
         from distutils.file_util import copy_file
@@ -196,7 +184,7 @@ class BuildRDKit(build_ext_orig):
                     f"-DCAIRO_INCLUDE_DIRS=C:\\vcpkg\\packages\\cairo_x86-windows\\include" if sys.platform == 'win32' else "",
                     f"-DCAIRO_LIBRARIES=C:\\vcpkg\\packages\\cairo_x86-windows\\lib" if sys.platform == 'win32' else "",
                     # that does not work currently
-#                     f"-DWIN32=True" if sys.platform == 'win32' else "",
+
                     f"-DRDK_INSTALL_STATIC_LIBS=OFF" if sys.platform == 'win32' else "",
             
 #                     f"-DFREETYPE_INCLUDE_DIRS=C:\\vcpkg\\packages\\freetype_x86-windows\\include" if sys.platform == 'win32' else "",

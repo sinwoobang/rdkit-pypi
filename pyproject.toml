@@ -34,7 +34,7 @@ before-build = [
     "choco install tartool wget sed pkgconfiglite",
     "vcpkg install zlib",
     "vcpkg install cairo",
-    "vcpkg install boost-python",
+    "vcpkg install boost-python boost-serialization boost-iostreams boost-system boost-regex",
 ]
 
           
