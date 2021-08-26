@@ -178,7 +178,7 @@ class BuildRDKit(build_ext_orig):
         # Invoke cmake and compile RDKit
         options = [
                     f"-DCMAKE_TOOLCHAIN_FILE=C:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake" if sys.platform == 'win32' else "",
-                    f"-DBoost_DEBUG=1",
+
                     f'-DPYTHON_EXECUTABLE={sys.executable}',
                     f'-DPYTHON_INCLUDE_DIR={get_paths()["include"]}',
 
@@ -188,8 +188,8 @@ class BuildRDKit(build_ext_orig):
                     f"-DRDK_BUILD_PYTHON_WRAPPERS=ON",
                     f"-DRDK_INSTALL_INTREE=OFF",
                                    
-                    f"-DBOOST_ROOT={boost_install_path}",
-                    f"-DBoost_NO_SYSTEM_PATHS=OFF",
+                    f"-DBOOST_ROOT={boost_install_path}" if sys.platform != 'win32' else "",
+                    f"-DBoost_NO_SYSTEM_PATHS=OFF" if sys.platform != 'win32' else "",
             
                     f"-DRDK_BUILD_CAIRO_SUPPORT=ON",
                     # for win 
