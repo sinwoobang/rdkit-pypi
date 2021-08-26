@@ -182,12 +182,13 @@ class BuildRDKit(build_ext_orig):
                     # for win 
                     f"-DCAIRO_INCLUDE_DIRS=C:\\vcpkg\\packages\\cairo_x86-windows\\include" if sys.platform == 'win32' else "",
                     f"-DCAIRO_LIBRARIES=C:\\vcpkg\\packages\\cairo_x86-windows\\lib" if sys.platform == 'win32' else "",
-                    # that does not work currently
 
+                    # that does not work currently
                     f"-DRDK_INSTALL_STATIC_LIBS=OFF" if sys.platform == 'win32' else "",
             
-                    f"-DFREETYPE_INCLUDE_DIRS=C:\\vcpkg\\packages\\freetype_x86-windows\\include" if sys.platform == 'win32' else "",
-                    f"-DFREETYPE_LIBRARIES=C:\\vcpkg\\packages\\freetype_x86-windows\\lib\\freetype.lib" if sys.platform == 'win32' else "",
+                    # f"-DFREETYPE_INCLUDE_DIRS=C:\\vcpkg\\packages\\freetype_x86-windows\\include" if sys.platform == 'win32' else "",
+                    # f"-DFREETYPE_LIBRARIES=C:\\vcpkg\\packages\\freetype_x86-windows\\lib\\freetype.lib" if sys.platform == 'win32' else "",
+                    f"-DFREETYPE_DIR=C:\\vcpkg\\packages\\freetype_x86-windows" if sys.platform == 'win32' else "",
             
                     f"-DCMAKE_INSTALL_PREFIX={rdkit_install_path}",
                     f"-DCMAKE_C_FLAGS=-Wno-implicit-function-declaration" if sys.platform != 'win32' else "",
