@@ -164,7 +164,7 @@ class BuildRDKit(build_ext_orig):
 
         # Invoke cmake and compile RDKit
         options = [
-                    # f"-DCMAKE_TOOLCHAIN_FILE=C:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake" if sys.platform == 'win32' else "",
+                    f"-DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake" if sys.platform == 'win32' else "",
 
                     f'-DPYTHON_EXECUTABLE={sys.executable}',
                     f'-DPYTHON_INCLUDE_DIR={get_paths()["include"]}',
@@ -176,26 +176,26 @@ class BuildRDKit(build_ext_orig):
                     f"-DRDK_INSTALL_INTREE=OFF",
                                    
                     f"-DBOOST_ROOT={boost_install_path}",
-                    f"-DBoost_NO_SYSTEM_PATHS=OFF",
+                    f"-DBoost_NO_SYSTEM_PATHS=ON",
             
                     f"-DRDK_BUILD_CAIRO_SUPPORT=ON",
                     # for win 
-                    f"-DCAIRO_INCLUDE_DIRS=C:/vcpkg/packages/cairo_x86-windows/include" if sys.platform == 'win32' else "",
-                    f"-DCAIRO_LIBRARIES=C:/vcpkg/packages/cairo_x86-windows/lib" if sys.platform == 'win32' else "",
+                    # f"-DCAIRO_INCLUDE_DIRS=C:/vcpkg/packages/cairo_x86-windows/include" if sys.platform == 'win32' else "",
+                    # f"-DCAIRO_LIBRARIES=C:/vcpkg/packages/cairo_x86-windows/lib" if sys.platform == 'win32' else "",
 
                     # that does not work currently
                     f"-DRDK_INSTALL_STATIC_LIBS=OFF" if sys.platform == 'win32' else "",
 
                     # zlib
-                    f"-DZLIB_LIBRARIES=C:/vcpkg/packages/zlib_x86-windows/lib" if sys.platform == 'win32' else "",
-                    f"-DZLIB_INCLUDE_DIRS=C:/vcpkg/packages/zlib_x86-windows/include" if sys.platform == 'win32' else "",
+                    # f"-DZLIB_LIBRARIES=C:/vcpkg/packages/zlib_x86-windows/lib/zlib.lib" if sys.platform == 'win32' else "",
+                    # f"-DZLIB_INCLUDE_DIRS=C:/vcpkg/packages/zlib_x86-windows/include" if sys.platform == 'win32' else "",
 
                     # freetype
-                    f"-DFREETYPE_INCLUDE_DIRS=C:/vcpkg/packages/freetype_x86-windows/include" if sys.platform == 'win32' else "",
-                    f"-DFREETYPE_LIBRARIES=C:/vcpkg/packages/freetype_x86-windows/lib/freetype.lib" if sys.platform == 'win32' else "",
+                    # f"-DFREETYPE_INCLUDE_DIRS=C:/vcpkg/packages/freetype_x86-windows/include" if sys.platform == 'win32' else "",
+                    # f"-DFREETYPE_LIBRARIES=C:/vcpkg/packages/freetype_x86-windows/lib/freetype.lib" if sys.platform == 'win32' else "",
 
                     # eigen3
-                    f"-DEIGEN3_INCLUDE_DIR=C:/vcpkg/packages/eigen3_x86-windows/include" if sys.platform == 'win32' else "",
+                    # f"-DEIGEN3_INCLUDE_DIR=C:/vcpkg/packages/eigen3_x86-windows/include" if sys.platform == 'win32' else "",
 
                     #
 
