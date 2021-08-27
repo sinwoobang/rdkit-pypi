@@ -175,8 +175,8 @@ class BuildRDKit(build_ext_orig):
                     f"-DRDK_BUILD_PYTHON_WRAPPERS=ON",
                     f"-DRDK_INSTALL_INTREE=OFF",
                                    
-                    f"-DBOOST_ROOT={boost_install_path}" if sys.platform != 'win32' else "",
-                    f"-DBoost_NO_SYSTEM_PATHS=OFF" if sys.platform != 'win32' else "",
+                    f"-DBOOST_ROOT={boost_install_path}",
+                    f"-DBoost_NO_SYSTEM_PATHS=OFF",
             
                     f"-DRDK_BUILD_CAIRO_SUPPORT=ON",
                     # for win 
