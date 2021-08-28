@@ -136,12 +136,14 @@ class BuildRDKit(build_ext_orig):
             # f'-s ZLIB_LIBRARY_PATH=C:\\vcpkg\\packages\\zlib_x86-windows\\lib -s ZLIB_INCLUDE=C:\\vcpkg\\packages\\zlib_x86-windows\\include ' \
             # f'--prefix={boost_install_path} -j 20 install'                     
             # ]
+            ph = f'Add-Content project-config.jam "using python : {sys.version_info[0]}.{sys.version_info[1]} : : {get_paths()["include"]} : {get_paths()["data"]}\\libs ;"'
+            zlib = f'Add-Content project-config.jam "using zlib : 2 : <include>C:\\vcpkg\\packages\\zlib_x86-windows\\include <search>C:\\vcpkg\\packages\\zlib_x86-windows\\lib ;"'
             cmds = [
                 f'bootstrap.bat',
-                f'powershell -command "Add-Content \'project-config.jam\' \'using python : {sys.version_info[0]}.{sys.version_info[1]} : : {get_paths()["include"]} : {get_paths()["data"]}\\libs ;\'"',
-                f'powershell -command "Add-Content \'project-config.jam\' \'using zlib : 2 : <include>C:\\vcpkg\\packages\\zlib_x86-windows\\include <search>C:\\vcpkg\\packages\\zlib_x86-windows\\lib ;\'"',
+                f'powershell -command "{ph}"',
+                f'powershell -command "{zlib}"',
                 f'powershell -command "Get-Content project-config.jam"',
-                f'./b2 --with-python --with-serialization --with-iostreams --with-system --with-regex -s ZLIB_LIBRARY_PATH=C:\\vcpkg\\packages\\zlib_x86-windows\\lib -s ZLIB_INCLUDE=C:\\vcpkg\\packages\\zlib_x86-windows\\include --prefix=C:\\Boost -j 20 install',
+                f'./b2 --with-python --with-serialization --with-iostreams --with-system --with-regex --prefix=C:\\Boost -j 20 install',
             ]
          
         [check_call(c.split()) for c in cmds]
