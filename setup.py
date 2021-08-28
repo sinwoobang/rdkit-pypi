@@ -138,10 +138,9 @@ class BuildRDKit(build_ext_orig):
             # ]
             cmds = [
                 f'bootstrap.bat',
-                f'powershell -command "Add-Content \"project-config.jam\" \"using python : {sys.version_info[0]}.{sys.version_info[1]} ;\""',
-                f'powershell -command "Add-Content \"project-config.jam\" \"using zlib : 2.2.11 : <include>C:\\vcpkg\\packages\\zlib_x86-windows\\include <search>C:\\vcpkg\\packages\\zlib_x86-windows\\lib ;\""',
-                f'./b2 --with-python --with-serialization --with-iostreams --with-system --with-regex ',
-                f'--prefix={boost_install_path} -j 20 install'
+                f'powershell -command "Add-Content \'project-config.jam\' \'using python : {sys.version_info[0]}.{sys.version_info[1]} ;\'"',
+                f'powershell -command "Add-Content \'project-config.jam\' \'using zlib : 2.2.11 : <include>C:\\vcpkg\\packages\\zlib_x86-windows\\include <search>C:\\vcpkg\\packages\\zlib_x86-windows\\lib ;\'"',
+                f'./b2 --with-python --with-serialization --with-iostreams --with-system --with-regex --prefix={boost_install_path} -j 20 install',
             ]
          
         [check_call(c.split()) for c in cmds]
