@@ -140,7 +140,7 @@ class BuildRDKit(build_ext_orig):
                 f'bootstrap.bat',
                 f'powershell -command "Add-Content \'project-config.jam\' \'using python : {sys.version_info[0]}.{sys.version_info[1]} ;\'"',
                 f'powershell -command "Add-Content \'project-config.jam\' \'using zlib : 2.2.11 : <include>C:\\vcpkg\\packages\\zlib_x86-windows\\include <search>C:\\vcpkg\\packages\\zlib_x86-windows\\lib ;\'"',
-                f'./b2 --with-python --with-serialization --with-iostreams --with-system --with-regex --prefix={boost_install_path} -j 20 install',
+                f'./b2 --with-python --with-serialization --with-iostreams --with-system --with-regex --prefix=C:\\Boost -j 20 install',
             ]
          
         [check_call(c.split()) for c in cmds]
@@ -182,8 +182,6 @@ class BuildRDKit(build_ext_orig):
                     f"-DRDK_INSTALL_INTREE=OFF",
                                    
                     f"-DBOOST_ROOT={boost_install_path}",
-                    f"-DBOOST_LIBRARYDIR={boost_install_path}\lib" if sys.platform == 'win32' else "",
-                    f"-DBOOST_INCLUDEDIR={boost_install_path}\include" if sys.platform == 'win32' else "",
                     
 
                     # f"-DBoost_INCLUDE_DIRS={boost_install_path / 'include'}" if sys.platform == 'win32' else "",
