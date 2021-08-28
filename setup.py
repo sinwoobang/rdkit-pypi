@@ -172,8 +172,8 @@ class BuildRDKit(build_ext_orig):
         options = [
                     f"-DCMAKE_TOOLCHAIN_FILE=C:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake" if sys.platform == 'win32' else "",
 
-                    f'-DPYTHON_EXECUTABLE={sys.executable}',
-                    f'-DPYTHON_INCLUDE_DIR={get_paths()["include"]}',
+                    f'-DPYTHON_EXECUTABLE={sys.executable}' if sys.platform != 'win32' else "",
+                    f'-DPYTHON_INCLUDE_DIR={get_paths()["include"]}' if sys.platform != 'win32' else "",
 
                     # RDKIT build flags
                     f"-DRDK_BUILD_INCHI_SUPPORT=ON",
