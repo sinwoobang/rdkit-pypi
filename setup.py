@@ -29,8 +29,11 @@ class BuildRDKit(build_ext_orig):
         for ext in self.extensions:
 
             # Build boot
-            self.build_boost(ext)
-
+            if sys.platform == 'win32':
+                self.pre_build_boost(ext)
+            else:
+                self.build_boost(ext)
+            
             # Then RDKit
             self.build_rdkit(ext)
             # Copy files so that a wheels package can be created
@@ -38,6 +41,16 @@ class BuildRDKit(build_ext_orig):
             
         # invoke the creation of the wheels package
         super().run()
+
+        
+    def pre_build_boost(self, ext):
+        cmds = [
+            f'wget https://boost.teeks99.com/bin/1.73.0/boost_1_73_0-msvc-14.1-64.exe --no-check-certificate',
+            f'Start-Process -Wait -FilePath ./boost_1_73_0-msvc-14.1-64.exe -Argument "/silent" -PassThru',
+            ]
+        [check_call(c.split()) for c in cmds]
+
+
 
     def get_ext_filename(self, ext_name):
         ext_path = ext_name.split('.')
