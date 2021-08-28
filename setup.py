@@ -181,7 +181,7 @@ class BuildRDKit(build_ext_orig):
                     f"-DRDK_BUILD_PYTHON_WRAPPERS=ON",
                     f"-DRDK_INSTALL_INTREE=OFF",
                                    
-                    f"-DBOOST_ROOT={boost_install_path}",
+                    f"-DBOOST_ROOT={boost_install_path}" if sys.platform != 'win32' else f"-DBOOST_ROOT=C:\\Boost",
                     f"-DBoost_DEBUG=ON",
                     
                     # f"-DBoost_INCLUDE_DIRS={boost_install_path / 'include'}" if sys.platform == 'win32' else "",
