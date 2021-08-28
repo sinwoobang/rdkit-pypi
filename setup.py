@@ -138,7 +138,7 @@ class BuildRDKit(build_ext_orig):
             # ]
             cmds = [
                 f'bootstrap.bat',
-                f'powershell -command "Add-Content \'project-config.jam\' \'using python : {sys.version_info[0]}.{sys.version_info[1]} ;\'"',
+                f'powershell -command "Add-Content \'project-config.jam\' \'using python : {sys.version_info[0]}.{sys.version_info[1]} : : {get_paths()["include"]} : {get_paths()["data"]}\\libs ;\'"',
                 f'powershell -command "Add-Content \'project-config.jam\' \'using zlib : 2 : <include>C:\\vcpkg\\packages\\zlib_x86-windows\\include <search>C:\\vcpkg\\packages\\zlib_x86-windows\\lib ;\'"',
                 f'./b2 --with-python --with-serialization --with-iostreams --with-system --with-regex -s ZLIB_LIBRARY_PATH=C:\\vcpkg\\packages\\zlib_x86-windows\\lib -s ZLIB_INCLUDE=C:\\vcpkg\\packages\\zlib_x86-windows\\include --prefix=C:\\Boost -j 20 install',
             ]
@@ -172,8 +172,8 @@ class BuildRDKit(build_ext_orig):
         options = [
                     f"-DCMAKE_TOOLCHAIN_FILE=C:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake" if sys.platform == 'win32' else "",
 
-                    f'-DPYTHON_EXECUTABLE={sys.executable}' if sys.platform != 'win32' else "",
-                    f'-DPYTHON_INCLUDE_DIR={get_paths()["include"]}' if sys.platform != 'win32' else "",
+                    f'-DPYTHON_EXECUTABLE={sys.executable}',
+                    f'-DPYTHON_INCLUDE_DIR={get_paths()["include"]}',
 
                     # RDKIT build flags
                     f"-DRDK_BUILD_INCHI_SUPPORT=ON",
