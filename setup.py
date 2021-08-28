@@ -29,11 +29,7 @@ class BuildRDKit(build_ext_orig):
         for ext in self.extensions:
 
             # Build boot
-            if sys.platform == 'win32':
-                self.pre_build_boost(ext)
-            else:
-                self.build_boost(ext)
-            
+            self.build_boost(ext)
             # Then RDKit
             self.build_rdkit(ext)
             # Copy files so that a wheels package can be created
@@ -41,15 +37,6 @@ class BuildRDKit(build_ext_orig):
             
         # invoke the creation of the wheels package
         super().run()
-
-        
-    def pre_build_boost(self, ext):
-        cmds = [
-            f'wget https://boost.teeks99.com/bin/1.73.0/boost_1_73_0-msvc-14.1-64.exe --no-check-certificate',
-            f'Start-Process -Wait -FilePath ./boost_1_73_0-msvc-14.1-64.exe -Argument "/silent" -PassThru',
-            ]
-        [check_call(c.split()) for c in cmds]
-
 
 
     def get_ext_filename(self, ext_name):
@@ -142,12 +129,19 @@ class BuildRDKit(build_ext_orig):
         ]
         # change commands for win32
         if sys.platform == 'win32':
-            cmds = [
-            f'bootstrap.bat --with-libraries=python,serialization,iostreams,system,regex --with-python={sys.executable} --with-python-root={Path(sys.executable).parent}/..',
+            # cmds = [
+            # f'bootstrap.bat --with-libraries=python,serialization,iostreams,system,regex --with-python={sys.executable} --with-python-root={Path(sys.executable).parent}/..',
              
-            f'./b2 --with-python --with-serialization --with-iostreams --with-system --with-regex ' \
-            f'-s ZLIB_LIBRARY_PATH=C:\\vcpkg\\packages\\zlib_x86-windows\\lib -s ZLIB_INCLUDE=C:\\vcpkg\\packages\\zlib_x86-windows\\include ' \
-            f'--prefix={boost_install_path} -j 20 install'                     
+            # f'./b2 --with-python --with-serialization --with-iostreams --with-system --with-regex ' \
+            # f'-s ZLIB_LIBRARY_PATH=C:\\vcpkg\\packages\\zlib_x86-windows\\lib -s ZLIB_INCLUDE=C:\\vcpkg\\packages\\zlib_x86-windows\\include ' \
+            # f'--prefix={boost_install_path} -j 20 install'                     
+            # ]
+            cmds = [
+                f'bootstrap.bat',
+                f'powershell -command "Add-Content \"project-config.jam\" \"using python : {sys.version_info[0]}.{sys.version_info[1]} ;\""',
+                f'powershell -command "Add-Content \"project-config.jam\" \"using zlib : 2.2.11 : <include>C:\\vcpkg\\packages\\zlib_x86-windows\\include <search>C:\\vcpkg\\packages\\zlib_x86-windows\\lib ;\""',
+                f'./b2 --with-python --with-serialization --with-iostreams --with-system --with-regex ',
+                f'--prefix={boost_install_path} -j 20 install'
             ]
          
         [check_call(c.split()) for c in cmds]
