@@ -104,7 +104,7 @@ class BuildRDKit(build_ext_orig):
         # Download and unpack Boost
         os.chdir(str(boost_build_path))
         cmds = [
-            f'wget {ext.boost_download_url} --no-check-certificate',
+            f'wget {ext.boost_download_url} --no-check-certificate -q',
             f'tar -xzf {Path(ext.boost_download_url).name}',]
         [check_call(c.split()) for c in cmds]
 
@@ -139,8 +139,8 @@ class BuildRDKit(build_ext_orig):
             cmds = [
                 f'bootstrap.bat',
                 f'powershell -command "Add-Content \'project-config.jam\' \'using python : {sys.version_info[0]}.{sys.version_info[1]} ;\'"',
-                f'powershell -command "Add-Content \'project-config.jam\' \'using zlib : 2.2.11 : <include>C:\\vcpkg\\packages\\zlib_x86-windows\\include <search>C:\\vcpkg\\packages\\zlib_x86-windows\\lib ;\'"',
-                f'./b2 --with-python --with-serialization --with-iostreams --with-system --with-regex --prefix=C:\\Boost -j 20 install',
+                f'powershell -command "Add-Content \'project-config.jam\' \'using zlib : 2 : <include>C:\\vcpkg\\packages\\zlib_x86-windows\\include <search>C:\\vcpkg\\packages\\zlib_x86-windows\\lib ;\'"',
+                f'./b2 --with-python --with-serialization --with-iostreams --with-system --with-regex -s ZLIB_LIBRARY_PATH=C:\\vcpkg\\packages\\zlib_x86-windows\\lib -s ZLIB_INCLUDE=C:\\vcpkg\\packages\\zlib_x86-windows\\include --prefix=C:\\Boost -j 20 install',
             ]
          
         [check_call(c.split()) for c in cmds]
@@ -186,7 +186,7 @@ class BuildRDKit(build_ext_orig):
                     # f"-DBoost_INCLUDE_DIRS={boost_install_path / 'include'}" if sys.platform == 'win32' else "",
                     # f"-DBoost_LIBRARY_DIRS={boost_install_path / 'lib'}" if sys.platform == 'win32' else "",
                     
-                    f"-DBoost_NO_SYSTEM_PATHS=ON",            
+                    f"-DBoost_NO_SYSTEM_PATHS=OFF",            
                     f"-DRDK_BUILD_CAIRO_SUPPORT=ON",
 
                     # that does not work currently
