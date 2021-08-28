@@ -183,20 +183,18 @@ class BuildRDKit(build_ext_orig):
                                    
                     f"-DBOOST_ROOT={boost_install_path}",
                     
-
                     # f"-DBoost_INCLUDE_DIRS={boost_install_path / 'include'}" if sys.platform == 'win32' else "",
                     # f"-DBoost_LIBRARY_DIRS={boost_install_path / 'lib'}" if sys.platform == 'win32' else "",
                     
-                    f"-DBoost_NO_SYSTEM_PATHS=ON",
-            
+                    f"-DBoost_NO_SYSTEM_PATHS=ON",            
                     f"-DRDK_BUILD_CAIRO_SUPPORT=ON",
-                    # for win 
-                    # f"-DCAIRO_INCLUDE_DIRS=C:/vcpkg/packages/cairo_x86-windows/include" if sys.platform == 'win32' else "",
-                    # f"-DCAIRO_LIBRARIES=C:/vcpkg/packages/cairo_x86-windows/lib" if sys.platform == 'win32' else "",
 
                     # that does not work currently
                     f"-DRDK_INSTALL_STATIC_LIBS=OFF" if sys.platform == 'win32' else "",
 
+                    # for win 
+                    # f"-DCAIRO_INCLUDE_DIRS=C:/vcpkg/packages/cairo_x86-windows/include" if sys.platform == 'win32' else "",
+                    # f"-DCAIRO_LIBRARIES=C:/vcpkg/packages/cairo_x86-windows/lib" if sys.platform == 'win32' else "",
                     # zlib
                     # f"-DZLIB_LIBRARIES=C:/vcpkg/packages/zlib_x86-windows/lib/zlib.lib" if sys.platform == 'win32' else "",
                     # f"-DZLIB_INCLUDE_DIRS=C:/vcpkg/packages/zlib_x86-windows/include" if sys.platform == 'win32' else "",
