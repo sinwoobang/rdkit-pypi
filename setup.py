@@ -131,12 +131,16 @@ class BuildRDKit(build_ext_orig):
             [check_call(c.split()) for c in cmds]
 
             # Compile for many python versions at the same time?
-            inc = Path(get_paths()["include"])
-            libs = Path(get_paths()["data"]) / 'libs'
-            with open('project-config.jam', 'a') as fl:
-                print(f'using python : {sys.version_info[0]}.{sys.version_info[1]} : : {inc} : {libs}', file=fl)
-                print(f'using zlib : 2 : <include>C:/vcpkg/packages/zlib_x86-windows/include <search>C:/vcpkg/packages/zlib_x86-windows/lib', file=fl)
+            python_inc = str(Path(get_paths()["include"])).replace('\\', '/')
+            python_libs = str(Path(get_paths()["data"]) / 'libs').replace('\\', '/')
 
+            zlib_include = str(Path('C:/vcpkg/packages/zlib_x86-windows/include')).replace('\\', '/')
+            zlib_lib = str(Path('C:/vcpkg/packages/zlib_x86-windows/lib')).replace('\\', '/')
+
+            with open('project-config.jam', 'a') as fl:
+                print(f'using python : {sys.version_info[0]}.{sys.version_info[1]} : : {python_inc} : {python_libs}', file=fl)
+                print(f'using zlib : 2 : <include>{zlib_include} <search>{zlib_lib}', file=fl)
+            
             cmds = [                
                 f'./b2 --with-python --with-serialization --with-iostreams --with-system --with-regex --prefix=C:\\Boost -j 20 install',
             ]

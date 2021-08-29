@@ -31,8 +31,10 @@ repair-wheel-command = [
 
 [tool.cibuildwheel.windows]
 before-build = [
-    "choco install tartool wget sed pkgconfiglite",
-    "vcpkg install zlib cairo freetype eigen3 freetype:x64-windows eigen3:x64-windows",
+    "choco install tartool wget",
+    # sed pkgconfiglite",
+    "vcpkg install zlib",
+    # cairo freetype eigen3 freetype:x64-windows eigen3:x64-windows",
 ]
 
           
