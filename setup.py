@@ -11,8 +11,6 @@ from pathlib import Path
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-    
-
 
 class RDKit(Extension):
 
@@ -25,7 +23,7 @@ class RDKit(Extension):
 class BuildRDKit(build_ext_orig):
 
     def run(self):
-        print('I am here')
+
         for ext in self.extensions:
 
             # Build boot
@@ -93,7 +91,7 @@ class BuildRDKit(build_ext_orig):
     
     def build_boost(self, ext):
         """Build the Boost libraries"""
-        print('Bulding boost')
+        
         cwd = Path().absolute()
         boost_build_path = Path(self.build_temp).absolute() / 'boost'
         boost_build_path.mkdir(parents=True, exist_ok=True)
@@ -124,24 +122,15 @@ class BuildRDKit(build_ext_orig):
         [call(c.split()) for c in cmds]
          
    
-        # change commands for win32
+        # Change commands for windows
         if sys.platform == 'win32':
-            # cmds = [
-            # f'bootstrap.bat --with-libraries=python,serialization,iostreams,system,regex --with-python={sys.executable} --with-python-root={Path(sys.executable).parent}/..',
-             
-            # f'./b2 --with-python --with-serialization --with-iostreams --with-system --with-regex ' \
-            # f'-s ZLIB_LIBRARY_PATH=C:\\vcpkg\\packages\\zlib_x86-windows\\lib -s ZLIB_INCLUDE=C:\\vcpkg\\packages\\zlib_x86-windows\\include ' \
-            # f'--prefix={boost_install_path} -j 20 install'                     
-            # ]
 
-            ph = f'Add-Content project-config.jam "using python : {sys.version_info[0]}.{sys.version_info[1]} : : {get_paths()["include"]} : {get_paths()["data"]}\\libs ;"'
-            zlib = f'Add-Content project-config.jam "using zlib : 2 : <include>C:\\vcpkg\\packages\\zlib_x86-windows\\include <search>C:\\vcpkg\\packages\\zlib_x86-windows\\lib ;"'
             cmds = [
                 f'bootstrap.bat',
             ]
             [check_call(c.split()) for c in cmds]
 
-
+            # Compile for many python versions at the same time?
             with open('project-config.jam', 'a') as fl:
                 print(f'using python : {sys.version_info[0]}.{sys.version_info[1]} : : {get_paths()["include"]} : {get_paths()["data"]}\\libs', file=fl)
                 print(f'using zlib : 2 : <include>C:\\vcpkg\\packages\\zlib_x86-windows\\include <search>C:\\vcpkg\\packages\\zlib_x86-windows\\lib', file=fl)
@@ -183,50 +172,47 @@ class BuildRDKit(build_ext_orig):
         os.chdir(str('rdkit'))
 
         # Invoke cmake and compile RDKit
-        options = [
-                    f"-DCMAKE_TOOLCHAIN_FILE=C:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake" if sys.platform == 'win32' else "",
+        options = [ 
+            # Defines the paths to many include and libaray paths for windows
+            f"-DCMAKE_TOOLCHAIN_FILE=C:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake" if sys.platform == 'win32' else "",
 
-                    f'-DPYTHON_EXECUTABLE={sys.executable}' if sys.platform != 'win32' else "",
-                    f'-DPYTHON_INCLUDE_DIR={get_paths()["include"]}' if sys.platform != 'win32' else "",
+            f'-DPYTHON_EXECUTABLE={sys.executable}',
+            f'-DPYTHON_INCLUDE_DIR={get_paths()["include"]}',
 
-                    # RDKIT build flags
-                    f"-DRDK_BUILD_INCHI_SUPPORT=ON",
-                    f"-DRDK_BUILD_AVALON_SUPPORT=ON",
-                    f"-DRDK_BUILD_PYTHON_WRAPPERS=ON",
-                    f"-DRDK_INSTALL_INTREE=OFF",
-                                   
-                    f"-DBOOST_ROOT={boost_install_path}" if sys.platform != 'win32' else f"-DBOOST_ROOT=C:\\Boost",
-                    f"-DBoost_DEBUG=ON",
-                    
-                    # f"-DBoost_INCLUDE_DIRS={boost_install_path / 'include'}" if sys.platform == 'win32' else "",
-                    # f"-DBoost_LIBRARY_DIRS={boost_install_path / 'lib'}" if sys.platform == 'win32' else "",
-                    
-                    f"-DBoost_NO_SYSTEM_PATHS=OFF",            
-                    f"-DRDK_BUILD_CAIRO_SUPPORT=ON",
+            # RDKIT build flags
+            f"-DRDK_BUILD_INCHI_SUPPORT=ON",
+            f"-DRDK_BUILD_AVALON_SUPPORT=ON",
+            f"-DRDK_BUILD_PYTHON_WRAPPERS=ON",
+            f"-DRDK_INSTALL_INTREE=OFF",
+            f"-DRDK_BUILD_CAIRO_SUPPORT=ON",
+                            
+            f"-DBOOST_ROOT={boost_install_path}" if sys.platform != 'win32' else f"-DBOOST_ROOT=C:\\Boost",
+            f"-DBoost_DEBUG=ON",
+            f"-DBoost_NO_SYSTEM_PATHS=OFF",            
 
-                    # that does not work currently
-                    f"-DRDK_INSTALL_STATIC_LIBS=OFF" if sys.platform == 'win32' else "",
+            # Does not work (this is fixed in future rdkit versions I believe)
+            f"-DRDK_INSTALL_STATIC_LIBS=OFF" if sys.platform == 'win32' else "",
 
-                    # for win 
-                    # f"-DCAIRO_INCLUDE_DIRS=C:/vcpkg/packages/cairo_x86-windows/include" if sys.platform == 'win32' else "",
-                    # f"-DCAIRO_LIBRARIES=C:/vcpkg/packages/cairo_x86-windows/lib" if sys.platform == 'win32' else "",
-                    # zlib
-                    # f"-DZLIB_LIBRARIES=C:/vcpkg/packages/zlib_x86-windows/lib/zlib.lib" if sys.platform == 'win32' else "",
-                    # f"-DZLIB_INCLUDE_DIRS=C:/vcpkg/packages/zlib_x86-windows/include" if sys.platform == 'win32' else "",
+            # for win 
+            # f"-DCAIRO_INCLUDE_DIRS=C:/vcpkg/packages/cairo_x86-windows/include" if sys.platform == 'win32' else "",
+            # f"-DCAIRO_LIBRARIES=C:/vcpkg/packages/cairo_x86-windows/lib" if sys.platform == 'win32' else "",
+            # zlib
+            # f"-DZLIB_LIBRARIES=C:/vcpkg/packages/zlib_x86-windows/lib/zlib.lib" if sys.platform == 'win32' else "",
+            # f"-DZLIB_INCLUDE_DIRS=C:/vcpkg/packages/zlib_x86-windows/include" if sys.platform == 'win32' else "",
 
-                    # freetype
-                    # f"-DFREETYPE_INCLUDE_DIRS=C:/vcpkg/packages/freetype_x86-windows/include" if sys.platform == 'win32' else "",
-                    # f"-DFREETYPE_LIBRARIES=C:/vcpkg/packages/freetype_x86-windows/lib/freetype.lib" if sys.platform == 'win32' else "",
+            # freetype
+            # f"-DFREETYPE_INCLUDE_DIRS=C:/vcpkg/packages/freetype_x86-windows/include" if sys.platform == 'win32' else "",
+            # f"-DFREETYPE_LIBRARIES=C:/vcpkg/packages/freetype_x86-windows/lib/freetype.lib" if sys.platform == 'win32' else "",
 
-                    # eigen3
-                    # f"-DEIGEN3_INCLUDE_DIR=C:/vcpkg/packages/eigen3_x86-windows/include" if sys.platform == 'win32' else "",
+            # eigen3
+            # f"-DEIGEN3_INCLUDE_DIR=C:/vcpkg/packages/eigen3_x86-windows/include" if sys.platform == 'win32' else "",
 
-                    #
+            f"-DCMAKE_INSTALL_PREFIX={rdkit_install_path}",
 
-                    f"-DCMAKE_INSTALL_PREFIX={rdkit_install_path}",
-                    f"-DCMAKE_C_FLAGS=-Wno-implicit-function-declaration" if sys.platform != 'win32' else "",
-                    f"-DCMAKE_CXX_FLAGS=-Wno-implicit-function-declaration" if sys.platform != 'win32' else "",
-                ]
+            # Mac needs this to compile 
+            f"-DCMAKE_C_FLAGS=-Wno-implicit-function-declaration" if sys.platform != 'win32' else "",
+            f"-DCMAKE_CXX_FLAGS=-Wno-implicit-function-declaration" if sys.platform != 'win32' else "",
+        ]
         
         cmds = [
             f"cmake -S . -B build {' '.join(options)} ",
