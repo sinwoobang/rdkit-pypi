@@ -6,8 +6,7 @@ on: [push]
 jobs:
   build_wheels:
     name: Build on ${{ matrix.os }}
-    # runs-on: ${{ matrix.os }}
-    runs-on: self-hosted
+    runs-on: ${{ matrix.os }}
     continue-on-error: true
     strategy:
       matrix:
