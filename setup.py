@@ -123,10 +123,7 @@ class BuildRDKit(build_ext_orig):
         # Ok to fail
         [call(c.split()) for c in cmds]
          
-        cmds = [
-            f'./bootstrap.sh --with-libraries=python,serialization,iostreams,system,regex --with-python={sys.executable} --with-python-root={Path(sys.executable).parent}/..',
-            f'./b2 install  --prefix={boost_install_path} -j 20',
-        ]
+   
         # change commands for win32
         if sys.platform == 'win32':
             # cmds = [
@@ -136,17 +133,41 @@ class BuildRDKit(build_ext_orig):
             # f'-s ZLIB_LIBRARY_PATH=C:\\vcpkg\\packages\\zlib_x86-windows\\lib -s ZLIB_INCLUDE=C:\\vcpkg\\packages\\zlib_x86-windows\\include ' \
             # f'--prefix={boost_install_path} -j 20 install'                     
             # ]
+
             ph = f'Add-Content project-config.jam "using python : {sys.version_info[0]}.{sys.version_info[1]} : : {get_paths()["include"]} : {get_paths()["data"]}\\libs ;"'
             zlib = f'Add-Content project-config.jam "using zlib : 2 : <include>C:\\vcpkg\\packages\\zlib_x86-windows\\include <search>C:\\vcpkg\\packages\\zlib_x86-windows\\lib ;"'
             cmds = [
                 f'bootstrap.bat',
-                f'powershell -command "{ph}"',
-                f'powershell -command "{zlib}"',
-                f'powershell -command "Get-Content project-config.jam"',
+            ]
+            [check_call(c.split()) for c in cmds]
+
+            c = ['powershell', '-command',
+             f'Add-Content -Path project-config.jam -Value "using python : {sys.version_info[0]}.{sys.version_info[1]} : : {get_paths()["include"]} : {get_paths()["data"]}\\libs ;"']
+            check_call(c)
+
+            c = ['powershell',
+             '-command',
+             f'Add-Content -Path project-config.jam -Value "using zlib : 2 : <include>C:\\vcpkg\\packages\\zlib_x86-windows\\include <search>C:\\vcpkg\\packages\\zlib_x86-windows\\lib ;"'
+             ]
+            check_call(c)
+
+            cmds = [                
                 f'./b2 --with-python --with-serialization --with-iostreams --with-system --with-regex --prefix=C:\\Boost -j 20 install',
             ]
+            [check_call(c.split()) for c in cmds]
+            
+
+
+        else:
+            cmds = [
+            f'./bootstrap.sh --with-libraries=python,serialization,iostreams,system,regex --with-python={sys.executable} --with-python-root={Path(sys.executable).parent}/..',
+            f'./b2 install  --prefix={boost_install_path} -j 20',
+            ]
+            [check_call(c.split()) for c in cmds]
+
          
-        [check_call(c.split()) for c in cmds]
+
+        
 
         os.chdir(str(cwd))
 
