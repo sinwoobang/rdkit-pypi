@@ -141,25 +141,15 @@ class BuildRDKit(build_ext_orig):
             ]
             [check_call(c.split()) for c in cmds]
 
-            python_number = sys.version_info[0]}.{sys.version_info[1]
-            python_inc = get_paths()["include"]
-            python_data = get_paths()["data"]
-            c = ['powershell', '-command',
-             f'Add-Content -Path project-config.jam -Value "using python : {python_number} : : {python_inc} : {python_data}\\libs ;"']
-            check_call(c)
 
-            c = ['powershell',
-             '-command',
-             f'Add-Content -Path project-config.jam -Value "using zlib : 2 : <include>C:\\\\vcpkg\\\\packages\\\\zlib_x86-windows\\\\include <search>C:\\\\vcpkg\\\\packages\\\\zlib_x86-windows\\\\lib ;"'
-             ]
-            check_call(c)
+            with open('project-config.jam', 'a') as fl:
+                print(f'using python : {sys.version_info[0]}.{sys.version_info[1]} : : {get_paths()["include"]} : {get_paths()["data"]}\\libs', file=fl)
+                print(f'using zlib : 2 : <include>C:\\vcpkg\\packages\\zlib_x86-windows\\include <search>C:\\vcpkg\\packages\\zlib_x86-windows\\lib', file=fl)
 
             cmds = [                
                 f'./b2 --with-python --with-serialization --with-iostreams --with-system --with-regex --prefix=C:\\Boost -j 20 install',
             ]
             [check_call(c.split()) for c in cmds]
-            
-
 
         else:
             cmds = [
