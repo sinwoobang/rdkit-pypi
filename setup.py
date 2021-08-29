@@ -138,8 +138,10 @@ class BuildRDKit(build_ext_orig):
             zlib_lib = str(Path('C:/vcpkg/packages/zlib_x86-windows/lib')).replace('\\', '/')
 
             with open('project-config.jam', 'a') as fl:
-                print(f'using python : {sys.version_info[0]}.{sys.version_info[1]} : : {python_inc} : {python_libs}', file=fl)
-                print(f'using zlib : 2 : <include>{zlib_include} <search>{zlib_lib}', file=fl)
+                print(f'using python : {sys.version_info[0]}.{sys.version_info[1]} : : {python_inc} : {python_libs} ;', file=fl)
+                print(f' ', file=fl)
+                print(f'using zlib : 2 : <include>{zlib_include} <search>{zlib_lib} ;', file=fl)
+                print(f' ', file=fl)
             
             cmds = [                
                 f'./b2 --with-python --with-serialization --with-iostreams --with-system --with-regex --prefix=C:\\Boost -j 20 install',
