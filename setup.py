@@ -78,13 +78,17 @@ class BuildRDKit(build_ext_orig):
         # auditwheel finds the libs at /usr/local/lib
         libs_rdkit_linux = Path(rdkit_root).glob('*.so*')
         libs_rdkit_macos = Path(rdkit_root).glob('*dylib')
-        libs_rdkit = list(libs_rdkit_linux) + list(libs_rdkit_macos)
+        libs_rdkit_win = Path(rdkit_root).glob('*.lib')
+
+        libs_rdkit = list(libs_rdkit_linux) + list(libs_rdkit_macos) + list(libs_rdkit_win)
 
         libs_boost = Path(self.build_temp).absolute() / 'boost_install' / 'lib'
 
         libs_boost_linux = libs_boost.glob('*.so*')
         libs_boost_mac = libs_boost.glob('*dylib')
-        libs_boost = list(libs_boost_linux) + list(libs_boost_mac)
+        libs_boost_win = libs_boost.glob('*.lib')
+
+        libs_boost = list(libs_boost_linux) + list(libs_boost_mac) + list(libs_boost_win) 
 
         [copy_file(i, '/usr/local/lib' ) for i in libs_rdkit]
         [copy_file(i, '/usr/local/lib' ) for i in libs_boost]
@@ -144,7 +148,7 @@ class BuildRDKit(build_ext_orig):
                 print(f' ', file=fl)
             
             cmds = [                
-                f'./b2 address-model=64 architecture=x86 --with-python --with-serialization --with-iostreams --with-system --with-regex --prefix=C:\\Boost -j 20 install',
+                f'./b2 address-model=64 architecture=x86 --with-python --with-serialization --with-iostreams --with-system --with-regex --prefix={boost_install_path} -j 20 install',
             ]
             [check_call(c.split()) for c in cmds]
 
@@ -182,6 +186,7 @@ class BuildRDKit(build_ext_orig):
         # Invoke cmake and compile RDKit
         options = [ 
             # Defines the paths to many include and libaray paths for windows
+            # Does not work for some reason??
             # f"-DCMAKE_TOOLCHAIN_FILE=C:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake" if sys.platform == 'win32' else "",
 
             f'-DPYTHON_EXECUTABLE={sys.executable}',
@@ -193,10 +198,9 @@ class BuildRDKit(build_ext_orig):
             f"-DRDK_BUILD_PYTHON_WRAPPERS=ON",
             f"-DRDK_INSTALL_INTREE=OFF",
             f"-DRDK_BUILD_CAIRO_SUPPORT=ON",
-                            
-            f"-DBOOST_ROOT={boost_install_path}" if sys.platform != 'win32' else f"-DBOOST_ROOT=C:/Boost",
 
-            f"-DBoost_DEBUG=ON",
+            # Boost              
+            f"-DBOOST_ROOT={boost_install_path}",
             f"-DBoost_NO_SYSTEM_PATHS=OFF",            
 
             # Does not work (this is fixed in future rdkit versions I believe)
@@ -216,14 +220,14 @@ class BuildRDKit(build_ext_orig):
             # eigen3
             f"-DEIGEN3_INCLUDE_DIR=C:/vcpkg/packages/eigen3_x64-windows/include" if sys.platform == 'win32' else "",
 
-            # build 64 version
+            # instruct to build x64 on windows
             "-Ax64" if sys.platform == 'win32' else "",
 
-            f"-DCMAKE_INSTALL_PREFIX={rdkit_install_path}",
-
-            # Mac needs this to compile 
+            # Mac needs these to compile 
             f"-DCMAKE_C_FLAGS=-Wno-implicit-function-declaration" if sys.platform != 'win32' else "",
             f"-DCMAKE_CXX_FLAGS=-Wno-implicit-function-declaration" if sys.platform != 'win32' else "",
+
+            f"-DCMAKE_INSTALL_PREFIX={rdkit_install_path}",
         ]
         
         cmds = [
