@@ -138,8 +138,8 @@ class BuildRDKit(build_ext_orig):
             python_inc = str(Path(get_paths()["include"])).replace('\\', '/')
             python_libs = str(Path(get_paths()["data"]) / 'libs').replace('\\', '/')
 
-            zlib_include = str(Path('C:/vcpkg/packages/zlib_x86-windows/include')).replace('\\', '/')
-            zlib_lib = str(Path('C:/vcpkg/packages/zlib_x86-windows/lib')).replace('\\', '/')
+            zlib_include = str(Path('C:/vcpkg/packages/zlib_x64-windows/include')).replace('\\', '/')
+            zlib_lib = str(Path('C:/vcpkg/packages/zlib_x64-windows/lib')).replace('\\', '/')
 
             with open('project-config.jam', 'a') as fl:
                 print(f'using python : {sys.version_info[0]}.{sys.version_info[1]} : : {python_inc} : {python_libs} ;', file=fl)
