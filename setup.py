@@ -195,8 +195,6 @@ class BuildRDKit(build_ext_orig):
             f"-DRDK_BUILD_CAIRO_SUPPORT=ON",
                             
             f"-DBOOST_ROOT={boost_install_path}" if sys.platform != 'win32' else f"-DBOOST_ROOT=C:/Boost",
-            f"-DBOOST_LIBRARYDIR=C:/Boost/lib" if sys.platform == 'win32' else f"",
-            f"-DBOOST_INCLUDEDIR=C:/Boost/include" if sys.platform == 'win32' else f"",
 
             f"-DBoost_DEBUG=ON",
             f"-DBoost_NO_SYSTEM_PATHS=OFF",            
@@ -206,19 +204,17 @@ class BuildRDKit(build_ext_orig):
 
             # for win 
             f"-DCAIRO_INCLUDE_DIRS=C:/vcpkg/packages/cairo_x86-windows/include" if sys.platform == 'win32' else "",
-            f"-DCAIRO_LIBRARIES=C:/vcpkg/packages/cairo_x86-windows/lib" if sys.platform == 'win32' else "",
+            f"-DCAIRO_LIBRARIES=C:/vcpkg/packages/cairo_x86-windows/lib/cairo.lib" if sys.platform == 'win32' else "",
             # zlib
             f"-DZLIB_LIBRARIES=C:/vcpkg/packages/zlib_x86-windows/lib/zlib.lib" if sys.platform == 'win32' else "",
             f"-DZLIB_INCLUDE_DIRS=C:/vcpkg/packages/zlib_x86-windows/include" if sys.platform == 'win32' else "",
 
             # freetype
-            f"-DFREETYPE_INCLUDE_DIRS=C:/vcpkg/packages/freetype_x64-windows/include" if sys.platform == 'win32' else "",
-            # f"-DFREETYPE_LIBRARIES=C:/vcpkg/packages/freetype_x64-windows/lib/freetype.lib" if sys.platform == 'win32' else "",
-            f"-DFREETYPE_LIBRARY=C:/vcpkg/packages/freetype_x64-windows/lib/freetype.lib" if sys.platform == 'win32' else "",
-            # f"-DFREETYPE_DIR=C:/vcpkg/packages/freetype_x64-windows/" if sys.platform == 'win32' else "",
-
+            f"-DFREETYPE_INCLUDE_DIRS=C:/vcpkg/packages/freetype_x86-windows/include" if sys.platform == 'win32' else "",
+            f"-DFREETYPE_LIBRARY=C:/vcpkg/packages/freetype_x86-windows/lib/freetype.lib" if sys.platform == 'win32' else "",
+            
             # eigen3
-            f"-DEIGEN3_INCLUDE_DIR=C:/vcpkg/packages/eigen3_x64-windows/include" if sys.platform == 'win32' else "",
+            f"-DEIGEN3_INCLUDE_DIR=C:/vcpkg/packages/eigen3_x86-windows/include" if sys.platform == 'win32' else "",
 
             f"-DCMAKE_INSTALL_PREFIX={rdkit_install_path}",
 
