@@ -34,4 +34,5 @@ script:
   - cd vcpkg
   - ./bootstrap-vcpkg.bat
   - ./vcpkg integrate install
+  - cd ..
   - python3 -m cibuildwheel --output-dir wheelhouse
