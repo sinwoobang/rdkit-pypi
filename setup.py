@@ -205,18 +205,18 @@ class BuildRDKit(build_ext_orig):
             f"-DRDK_INSTALL_STATIC_LIBS=OFF" if sys.platform == 'win32' else "",
 
             # for win 
-            # f"-DCAIRO_INCLUDE_DIRS=C:/vcpkg/packages/cairo_x86-windows/include" if sys.platform == 'win32' else "",
-            # f"-DCAIRO_LIBRARIES=C:/vcpkg/packages/cairo_x86-windows/lib" if sys.platform == 'win32' else "",
+            f"-DCAIRO_INCLUDE_DIRS=C:\\vcpkg\\packages\\cairo_x86-windows\\include" if sys.platform == 'win32' else "",
+            f"-DCAIRO_LIBRARIES=C:\\vcpkg\\packages\\cairo_x86-windows\\lib" if sys.platform == 'win32' else "",
             # zlib
-            # f"-DZLIB_LIBRARIES=C:/vcpkg/packages/zlib_x86-windows/lib/zlib.lib" if sys.platform == 'win32' else "",
-            # f"-DZLIB_INCLUDE_DIRS=C:/vcpkg/packages/zlib_x86-windows/include" if sys.platform == 'win32' else "",
+            f"-DZLIB_LIBRARIES=C:\\vcpkg\\packages\\zlib_x86-windows\\lib\\zlib.lib" if sys.platform == 'win32' else "",
+            f"-DZLIB_INCLUDE_DIRS=C:\\vcpkg\\packages\\zlib_x86-windows\\include" if sys.platform == 'win32' else "",
 
             # freetype
-            # f"-DFREETYPE_INCLUDE_DIRS=C:/vcpkg/packages/freetype_x86-windows/include" if sys.platform == 'win32' else "",
-            # f"-DFREETYPE_LIBRARIES=C:/vcpkg/packages/freetype_x86-windows/lib/freetype.lib" if sys.platform == 'win32' else "",
+            f"-DFREETYPE_INCLUDE_DIRS=C:\\vcpkg\\packages\\freetype_x64-windows\\include" if sys.platform == 'win32' else "",
+            f"-DFREETYPE_LIBRARIES=C:\\vcpkg\\packages\\freetype_x64-windows\\lib\\freetype.lib" if sys.platform == 'win32' else "",
 
             # eigen3
-            # f"-DEIGEN3_INCLUDE_DIR=C:/vcpkg/packages/eigen3_x86-windows/include" if sys.platform == 'win32' else "",
+            f"-DEIGEN3_INCLUDE_DIR=C:\\vcpkg\\packages\\eigen3_x64-windows\\include" if sys.platform == 'win32' else "",
 
             f"-DCMAKE_INSTALL_PREFIX={rdkit_install_path}",
 
