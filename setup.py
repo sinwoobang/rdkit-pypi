@@ -144,14 +144,14 @@ class BuildRDKit(build_ext_orig):
                 print(f' ', file=fl)
             
             cmds = [                
-                f'./b2 --with-python --with-serialization --with-iostreams --with-system --with-regex --prefix=C:\\Boost -j 20 install',
+                f'./b2 address-model=64 architecture=x86 --with-python --with-serialization --with-iostreams --with-system --with-regex --prefix=C:\\Boost -j 20 install',
             ]
             [check_call(c.split()) for c in cmds]
 
         else:
             cmds = [
             f'./bootstrap.sh --with-libraries=python,serialization,iostreams,system,regex --with-python={sys.executable} --with-python-root={Path(sys.executable).parent}/..',
-            f'./b2 install  --prefix={boost_install_path} -j 20',
+            f'./b2 install --prefix={boost_install_path} -j 20',
             ]
             [check_call(c.split()) for c in cmds]
 
@@ -203,18 +203,18 @@ class BuildRDKit(build_ext_orig):
             f"-DRDK_INSTALL_STATIC_LIBS=OFF" if sys.platform == 'win32' else "",
 
             # for win 
-            f"-DCAIRO_INCLUDE_DIRS=C:/vcpkg/packages/cairo_x86-windows/include" if sys.platform == 'win32' else "",
-            f"-DCAIRO_LIBRARIES=C:/vcpkg/packages/cairo_x86-windows/lib/cairo.lib" if sys.platform == 'win32' else "",
+            f"-DCAIRO_INCLUDE_DIRS=C:/vcpkg/packages/cairo_x64-windows/include" if sys.platform == 'win32' else "",
+            f"-DCAIRO_LIBRARIES=C:/vcpkg/packages/cairo_x64-windows/lib/cairo.lib" if sys.platform == 'win32' else "",
             # zlib
-            f"-DZLIB_LIBRARIES=C:/vcpkg/packages/zlib_x86-windows/lib/zlib.lib" if sys.platform == 'win32' else "",
-            f"-DZLIB_INCLUDE_DIRS=C:/vcpkg/packages/zlib_x86-windows/include" if sys.platform == 'win32' else "",
+            f"-DZLIB_LIBRARIES=C:/vcpkg/packages/zlib_x64-windows/lib/zlib.lib" if sys.platform == 'win32' else "",
+            f"-DZLIB_INCLUDE_DIRS=C:/vcpkg/packages/zlib_x64-windows/include" if sys.platform == 'win32' else "",
 
             # freetype
-            f"-DFREETYPE_INCLUDE_DIRS=C:/vcpkg/packages/freetype_x86-windows/include" if sys.platform == 'win32' else "",
-            f"-DFREETYPE_LIBRARY=C:/vcpkg/packages/freetype_x86-windows/lib/freetype.lib" if sys.platform == 'win32' else "",
+            f"-DFREETYPE_INCLUDE_DIRS=C:/vcpkg/packages/freetype_x64-windows/include" if sys.platform == 'win32' else "",
+            f"-DFREETYPE_LIBRARY=C:/vcpkg/packages/freetype_x64-windows/lib/freetype.lib" if sys.platform == 'win32' else "",
             
             # eigen3
-            f"-DEIGEN3_INCLUDE_DIR=C:/vcpkg/packages/eigen3_x86-windows/include" if sys.platform == 'win32' else "",
+            f"-DEIGEN3_INCLUDE_DIR=C:/vcpkg/packages/eigen3_x64-windows/include" if sys.platform == 'win32' else "",
 
             f"-DCMAKE_INSTALL_PREFIX={rdkit_install_path}",
 
