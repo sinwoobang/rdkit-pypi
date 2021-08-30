@@ -182,7 +182,7 @@ class BuildRDKit(build_ext_orig):
         # Invoke cmake and compile RDKit
         options = [ 
             # Defines the paths to many include and libaray paths for windows
-            f"-DCMAKE_TOOLCHAIN_FILE=C:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake" if sys.platform == 'win32' else "",
+            # f"-DCMAKE_TOOLCHAIN_FILE=C:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake" if sys.platform == 'win32' else "",
 
             f'-DPYTHON_EXECUTABLE={sys.executable}',
             f'-DPYTHON_INCLUDE_DIR={get_paths()["include"]}',
