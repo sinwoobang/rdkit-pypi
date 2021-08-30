@@ -213,8 +213,9 @@ class BuildRDKit(build_ext_orig):
 
             # freetype
             f"-DFREETYPE_INCLUDE_DIRS=C:/vcpkg/packages/freetype_x64-windows/include" if sys.platform == 'win32' else "",
-            f"-DFREETYPE_LIBRARIES=C:/vcpkg/packages/freetype_x64-windows/lib/freetype.lib" if sys.platform == 'win32' else "",
-            f"-DFREETYPE_DIR=C:/vcpkg/packages/freetype_x64-windows/" if sys.platform == 'win32' else "",
+            # f"-DFREETYPE_LIBRARIES=C:/vcpkg/packages/freetype_x64-windows/lib/freetype.lib" if sys.platform == 'win32' else "",
+            f"-DFREETYPE_LIBRARY=C:/vcpkg/packages/freetype_x64-windows/lib/freetype.lib" if sys.platform == 'win32' else "",
+            # f"-DFREETYPE_DIR=C:/vcpkg/packages/freetype_x64-windows/" if sys.platform == 'win32' else "",
 
             # eigen3
             f"-DEIGEN3_INCLUDE_DIR=C:/vcpkg/packages/eigen3_x64-windows/include" if sys.platform == 'win32' else "",
