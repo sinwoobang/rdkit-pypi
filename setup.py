@@ -216,6 +216,9 @@ class BuildRDKit(build_ext_orig):
             # eigen3
             f"-DEIGEN3_INCLUDE_DIR=C:/vcpkg/packages/eigen3_x64-windows/include" if sys.platform == 'win32' else "",
 
+            # build 64 version
+            "-Ax64" if sys.platform == 'win32' else "",
+
             f"-DCMAKE_INSTALL_PREFIX={rdkit_install_path}",
 
             # Mac needs this to compile 
