@@ -29,4 +29,9 @@ install:
 
 script:
   # build the wheels, put them into './wheelhouse'
+  - export VCPKG_DEFAULT_TRIPLET=x64-windows
+  - git clone https://github.com/Microsoft/vcpkg.git
+  - cd vcpkg
+  - ./bootstrap-vcpkg.bat
+  - ./vcpkg integrate install
   - python3 -m cibuildwheel --output-dir wheelhouse
