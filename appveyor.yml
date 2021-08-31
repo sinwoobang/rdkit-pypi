@@ -21,7 +21,7 @@ install:
      CD ..
   # report the available MSVC compilers
   - python -m faber.tools.msvc 
-  - python -m faber --with-boost-include=C:/Libraries/boost_1_69_0 target.arch=x64
+  - C:/Python37/Scripts/faber.exe --with-boost-include=C:/Libraries/boost_1_69_0 target.arch=x64
   - python -m pip install cibuildwheel==2.1.1
 
 build_script: python -m cibuildwheel --output-dir wheelhouse
