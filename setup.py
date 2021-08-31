@@ -151,7 +151,8 @@ class BuildRDKit(build_ext_orig):
             # Compile for many python versions at the same time?
             python_inc = Path(get_paths()["include"])
             python_libs = Path(get_paths()["data"]) / 'libs'
-            python_dir = Path(get_paths()["data"]) 
+            python_exe = Path(get_paths()["data"]) / 'python.exe'
+            
             
             zlib_include = vcpkg_path / 'packages/zlib_x64-windows/include'
             zlib_lib = vcpkg_path / 'packages/zlib_x64-windows/lib'
@@ -159,7 +160,7 @@ class BuildRDKit(build_ext_orig):
             bzip2_include = vcpkg_path / 'packages/bzip2_x64-windows/include'
             bzip2_lib = vcpkg_path / 'packages/bzip2_x64-windows/lib'
             with open('project-config.jam', 'a') as fl:
-                print(f'using python : {sys.version_info[0]}.{sys.version_info[1]} : {towin(python_dir) + "\python.exe" } : {towin(python_inc)} : {towin(python_libs)} ;', file=fl)
+                print(f'using python : {sys.version_info[0]}.{sys.version_info[1]} : {towin(python_exe)} : {towin(python_inc)} : {towin(python_libs)} ;', file=fl)
                 print(f' ', file=fl)
                 print(f'using zlib : 2 : <include>{towin(zlib_include)} <search>{towin(zlib_lib)} ;', file=fl)
                 print(f' ', file=fl)
