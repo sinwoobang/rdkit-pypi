@@ -12,11 +12,7 @@ stack: python 3.7
 init:
 - cmd: set PATH=C:\Python37;C:\Python37\Scripts;%PATH%
 
-install:    
-  - python -m pip install scons
-  - git clone https://github.com/berolinux/boost-python
-  - cd boost-python
-  - scons config --boost=C:\Libraries\boost_1_69_0 --python=C:\Python37
+install:
   - python -m pip install cibuildwheel==2.1.1
 
 build_script: python -m cibuildwheel --output-dir wheelhouse

@@ -40,8 +40,8 @@ class BuildRDKit(build_ext_orig):
         for ext in self.extensions:
 
             # Build boot
-            if not appv:
-                self.build_boost(ext)
+            self.build_boost(ext)
+
             # Then RDKit
             self.build_rdkit(ext)
             # Copy files so that a wheels package can be created
@@ -168,7 +168,7 @@ class BuildRDKit(build_ext_orig):
             cmds = [                
                 f'./b2 address-model=64 architecture=x86 link=static link=shared threading=single threading=multi ' \
                 f'variant=release ' \
-                f'--with-python --with-serialization --with-iostreams --with-system --with-regex --with-program_options ' \
+                f'--with-python={sys.executable} --with-python-root={Path(sys.executable).parent}/.. --with-serialization --with-iostreams --with-system --with-regex --with-program_options ' \
                 f'--prefix={boost_install_path} -j 20 install',
             ]
             [check_call(c.split()) for c in cmds]
@@ -222,7 +222,7 @@ class BuildRDKit(build_ext_orig):
             f"-DRDK_BUILD_CAIRO_SUPPORT=ON",
 
             # Boost              
-            f"-DBOOST_ROOT={boost_install_path}" if not appv else f"-DBOOST_ROOT=C:/Libraries/boost_1_69_0",
+            f"-DBOOST_ROOT={boost_install_path}" if not appv else f"-DBOOST_ROOT=C:/Boost",
             f"-DBoost_NO_SYSTEM_PATHS=OFF",
             f"-DBoost_DEBUG=ON",        
 
