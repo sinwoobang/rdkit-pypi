@@ -167,8 +167,8 @@ class BuildRDKit(build_ext_orig):
             
             cmds = [                
                 f'./b2 address-model=64 architecture=x86 link=static link=shared threading=single threading=multi ' \
-                f'variant=release --build-type=complete ' \
-                # f'--with-python --with-serialization --with-iostreams --with-system --with-regex --with-program_options ' \
+                f'variant=release ' \
+                f'--with-python --with-serialization --with-iostreams --with-system --with-regex --with-program_options ' \
                 f'--prefix={boost_install_path} -j 20 install',
             ]
             [check_call(c.split()) for c in cmds]
