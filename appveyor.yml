@@ -13,16 +13,11 @@ init:
 - cmd: set PATH=C:\Python37;C:\Python37\Scripts;%PATH%
 
 install:  
-  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
-  - |
-     curl -LfsS -o faber.tar.gz https://github.com/stefanseefeld/faber/archive/refs/tags/release/0.2.tar.gz
-     tar xf faber.tar.gz
-     CD faber-release-0.2
-     python setup.py install
-     CD ..
   # report the available MSVC compilers
   - python -m faber.tools.msvc 
-  - faber --with-boost-include=C:/Libraries/boost_1_69_0 target.arch=x64 msvc.version=14.0
+  
+  - python -m pip install scons
+  - scons config --boost=C:\Libraries\boost_1_69_0 --python=C:\Python37
   - python -m pip install cibuildwheel==2.1.1
 
 build_script: python -m cibuildwheel --output-dir wheelhouse
