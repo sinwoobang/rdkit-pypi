@@ -120,18 +120,18 @@ class BuildRDKit(build_ext_orig):
         # Download and unpack Boost
         os.chdir(str(boost_build_path))
 
-
+        boost_url = ext.boost_download_url
         if sys.platform == 'win32':
-            ext.boost_download_url = 'https://boostorg.jfrog.io/native/main/release/1.67.0/source/boost_1_67_0.tar.gz'
+            boost_url = 'https://boostorg.jfrog.io/native/main/release/1.67.0/source/boost_1_67_0.tar.gz'
 
         cmds = [
-            f'wget {ext.boost_download_url} --no-check-certificate -q' 
-            f'tar -xzf {Path(ext.boost_download_url).name}',]
+            f'wget {boost_url} --no-check-certificate -q' 
+            f'tar -xzf {Path(boost_url).name}',]
 
         [check_call(c.split()) for c in cmds]
 
         # Compile Boost
-        os.chdir(Path(ext.boost_download_url).with_suffix('').with_suffix('').name)
+        os.chdir(Path(boost_url).with_suffix('').with_suffix('').name)
 
         # This fixes a bug in the boost configuration. Boost expects python include paths without "m"
         cmds = [
@@ -169,8 +169,8 @@ class BuildRDKit(build_ext_orig):
                 print(f' ', file=fl)
                 print(f'using zlib : 2 : <include>{towin(zlib_include)} <search>{towin(zlib_lib)} ;', file=fl)
                 print(f' ', file=fl)
-                # print(f'using bzip2 : 1 : <include>{towin(bzip2_include)} <search>{towin(bzip2_lib)} ;', file=fl)
-                # print(f' ', file=fl)
+                print(f'using bzip2 : 1 : <include>{towin(bzip2_include)} <search>{towin(bzip2_lib)} ;', file=fl)
+                print(f' ', file=fl)
             
             cmds = [                
                 f'./b2 address-model=64 architecture=x86 link=static link=shared threading=single threading=multi ' \
