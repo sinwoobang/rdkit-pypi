@@ -220,10 +220,14 @@ class BuildRDKit(build_ext_orig):
             f"-DRDK_INSTALL_STATIC_LIBS=OFF" if sys.platform == 'win32' else "",
 
             # for win 
+            # cairo
             f"-DCAIRO_INCLUDE_DIRS={towin(vcpkg_path / 'packages/cairo_x64-windows/include') }" if sys.platform == 'win32' else "",
             f"-DCAIRO_LIBRARIES={towin(vcpkg_path / 'packages/cairo_x64-windows/lib/cairo.lib')}" if sys.platform == 'win32' else "",
+
             # zlib
             f"-DZLIB_LIBRARIES={towin(vcpkg_path / 'packages/zlib_x64-windows/lib/zlib.lib')}" if sys.platform == 'win32' else "",
+            f"-DZLIB_LIBRARY={towin(vcpkg_path / 'packages/zlib_x64-windows/lib/zlib.lib')}" if sys.platform == 'win32' else "",
+
             f"-DZLIB_INCLUDE_DIRS={towin(vcpkg_path / 'packages/zlib_x64-windows/include')}" if sys.platform == 'win32' else "",
 
             # freetype
