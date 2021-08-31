@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 # get vcpkg path
-if Path('C:/Tools/vcpkg').exists()
+if Path('C:/Tools/vcpkg').exists():
     vcpkg_path = Path('C:/Tools/vcpkg')
 else:
     vcpkg_path = Path('C:/vcpkg')
@@ -160,7 +160,7 @@ class BuildRDKit(build_ext_orig):
                 print(f' ', file=fl)
             
             cmds = [                
-                f'./b2 address-model=64 architecture=x86 --with-python --with-serialization --with-iostreams --with-system --with-regex --prefix={boost_install_path} -j 20 install',
+                f'./b2 address-model=64 architecture=x86 --with-python --with-serialization --with-iostreams --with-system --with-regex --with-program_options --prefix={boost_install_path} -j 20 install',
             ]
             [check_call(c.split()) for c in cmds]
 
