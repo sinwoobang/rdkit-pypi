@@ -120,19 +120,17 @@ class BuildRDKit(build_ext_orig):
         # Download and unpack Boost
         os.chdir(str(boost_build_path))
 
-        boost_url = ext.boost_download_url
-
         if sys.platform == 'win32':
-            boost_url = 'https://boostorg.jfrog.io/artifactory/main/release/1.67.0/source/boost_1_67_0.tar.gz'
+            ext.boost_download_url = 'https://boostorg.jfrog.io/artifactory/main/release/1.67.0/source/boost_1_67_0.tar.gz'
 
         cmds = [
-            f'wget {boost_url} --no-check-certificate -q' 
-            f'tar -xzf {Path(boost_url).name}',]
+            f'wget {boost_download_url} --no-check-certificate -q' 
+            f'tar -xzf {Path(boost_download_url).name}',]
 
         [check_call(c.split()) for c in cmds]
 
         # Compile Boost
-        os.chdir(Path(boost_url).with_suffix('').with_suffix('').name)
+        os.chdir(Path(boost_download_url).with_suffix('').with_suffix('').name)
 
         # This fixes a bug in the boost configuration. Boost expects python include paths without "m"
         cmds = [
@@ -300,7 +298,6 @@ setup(
         RDKit(
             'rdkit',
             boost_download_url='https://boostorg.jfrog.io/artifactory/main/release/1.73.0/source/boost_1_73_0.tar.gz',
-                               
             rdkit_tag='Release_2021_03_4'
             ),        
     ],
