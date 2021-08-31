@@ -12,10 +12,7 @@ stack: python 3.7
 init:
 - cmd: set PATH=C:\Python37;C:\Python37\Scripts;%PATH%
 
-install:  
-  # report the available MSVC compilers
-  - python -m faber.tools.msvc 
-  
+install:    
   - python -m pip install scons
   - scons config --boost=C:\Libraries\boost_1_69_0 --python=C:\Python37
   - python -m pip install cibuildwheel==2.1.1
