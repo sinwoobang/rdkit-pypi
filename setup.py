@@ -151,6 +151,7 @@ class BuildRDKit(build_ext_orig):
             # Compile for many python versions at the same time?
             python_inc = Path(get_paths()["include"])
             python_libs = Path(get_paths()["data"]) / 'libs'
+            python_dir = Path(get_paths()["data"])
             
             zlib_include = vcpkg_path / 'packages/zlib_x64-windows/include'
             zlib_lib = vcpkg_path / 'packages/zlib_x64-windows/lib'
@@ -158,7 +159,7 @@ class BuildRDKit(build_ext_orig):
             bzip2_include = vcpkg_path / 'packages/bzip2_x64-windows/include'
             bzip2_lib = vcpkg_path / 'packages/bzip2_x64-windows/lib'
             with open('project-config.jam', 'a') as fl:
-                print(f'using python : {sys.version_info[0]}.{sys.version_info[1]} : : {towin(python_inc)} : {towin(python_libs)} ;', file=fl)
+                print(f'using python : {sys.version_info[0]}.{sys.version_info[1]} : {towin(python_dir)} : {towin(python_inc)} : {towin(python_libs)} ;', file=fl)
                 print(f' ', file=fl)
                 print(f'using zlib : 2 : <include>{towin(zlib_include)} <search>{towin(zlib_lib)} ;', file=fl)
                 print(f' ', file=fl)
@@ -168,7 +169,7 @@ class BuildRDKit(build_ext_orig):
             cmds = [                
                 f'./b2 address-model=64 architecture=x86 link=static link=shared threading=single threading=multi ' \
                 f'variant=release ' \
-                f'--with-python={sys.executable} --with-python-root={Path(sys.executable).parent}/.. --with-serialization --with-iostreams --with-system --with-regex --with-program_options ' \
+                f'--with-python --with-serialization --with-iostreams --with-system --with-regex --with-program_options ' \
                 f'--prefix={boost_install_path} -j 20 install',
             ]
             [check_call(c.split()) for c in cmds]
