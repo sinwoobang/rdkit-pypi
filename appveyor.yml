@@ -13,6 +13,7 @@ init:
 - cmd: set PATH=C:\Python37;C:\Python37\Scripts;%PATH%
 
 install:
+  - powershell -command New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWORD -Force
   - python -m pip install cibuildwheel==2.1.1
 
 build_script: python -m cibuildwheel --output-dir wheelhouse
