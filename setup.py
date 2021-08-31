@@ -153,7 +153,6 @@ class BuildRDKit(build_ext_orig):
             python_libs = Path(get_paths()["data"]) / 'libs'
             python_exe = Path(get_paths()["data"]) / 'python.exe'
             
-            
             zlib_include = vcpkg_path / 'packages/zlib_x64-windows/include'
             zlib_lib = vcpkg_path / 'packages/zlib_x64-windows/lib'
 
@@ -182,7 +181,8 @@ class BuildRDKit(build_ext_orig):
             ]
             [check_call(c.split()) for c in cmds]
 
-        check_call(['ls', boost_install_path + '\lib'])
+            
+        check_call(['ls', towin(boost_install_path / 'lib'))
 
         os.chdir(str(cwd))
 
