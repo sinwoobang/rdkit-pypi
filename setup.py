@@ -182,7 +182,7 @@ class BuildRDKit(build_ext_orig):
             [check_call(c.split()) for c in cmds]
 
             
-        check_call(['ls', towin(boost_install_path / 'lib'))
+        check_call(['ls', towin(boost_install_path / 'lib')])
 
         os.chdir(str(cwd))
 
