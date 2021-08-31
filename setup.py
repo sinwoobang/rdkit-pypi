@@ -236,6 +236,8 @@ class BuildRDKit(build_ext_orig):
 
             # Does not work (this is fixed in future rdkit versions I believe)
             f"-DRDK_INSTALL_STATIC_LIBS=OFF" if sys.platform == 'win32' else "",
+            # Path of tests s too long. Windows can't handle such long pathts.
+            f"-DRDK_TEST_MMFF_COMPLIANCE=OFF" if sys.platform == 'win32' else "",
 
             # for win 
             # cairo
@@ -252,7 +254,8 @@ class BuildRDKit(build_ext_orig):
             # freetype
             f"-DFREETYPE_INCLUDE_DIRS={towin(vcpkg_path / 'packages/freetype_x64-windows/include')}" if sys.platform == 'win32' else "",
             f"-DFREETYPE_LIBRARY={towin(vcpkg_path / 'packages/freetype_x64-windows/lib/freetype.lib')}" if sys.platform == 'win32' else "",
-            
+
+                        
             # eigen3
             # f"-DEIGEN3_INCLUDE_DIR={towin(vcpkg_path / 'packages/eigen3_x64-windows/include')}" if sys.platform == 'win32' else "",
 
