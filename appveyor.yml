@@ -14,11 +14,10 @@ init:
 
 install:  
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
-  - "SET PYTHONHTTPSVERIFY=0"
   - |
-     curl -LfsS -o faber.tar.gz https://github.com/stefanseefeld/faber/archive/refs/tags/release/0.4.tar.gz
+     curl -LfsS -o faber.tar.gz https://github.com/stefanseefeld/faber/archive/refs/tags/release/0.2.tar.gz
      tar xf faber.tar.gz
-     CD faber-release-0.4
+     CD faber-release-0.2
      python setup.py install
      CD ..
   # report the available MSVC compilers
