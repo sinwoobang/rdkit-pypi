@@ -9,10 +9,11 @@ import shutil
 
 from pathlib import Path
 
-
+appv = False
 # get vcpkg path
 if Path('C:/Tools/vcpkg').exists():
     vcpkg_path = Path('C:/Tools/vcpkg')
+    appv = True
 else:
     vcpkg_path = Path('C:/vcpkg')
 
@@ -39,7 +40,8 @@ class BuildRDKit(build_ext_orig):
         for ext in self.extensions:
 
             # Build boot
-            self.build_boost(ext)
+            if not appv:
+                self.build_boost(ext)
             # Then RDKit
             self.build_rdkit(ext)
             # Copy files so that a wheels package can be created
@@ -220,7 +222,7 @@ class BuildRDKit(build_ext_orig):
             f"-DRDK_BUILD_CAIRO_SUPPORT=ON",
 
             # Boost              
-            f"-DBOOST_ROOT={boost_install_path}",
+            f"-DBOOST_ROOT={boost_install_path}" if not appv else f"-DBOOST_ROOT=C:\Libraries\boost_1_69_0",
             f"-DBoost_NO_SYSTEM_PATHS=OFF",
             f"-DBoost_DEBUG=ON",        
 
