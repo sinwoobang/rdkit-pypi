@@ -5,6 +5,7 @@ import os
 from subprocess import check_call, call, run, PIPE
 import sys
 from sys import platform
+import shutil
 
 from pathlib import Path
 
@@ -137,9 +138,12 @@ class BuildRDKit(build_ext_orig):
             # Compile for many python versions at the same time?
             python_inc = str(Path(get_paths()["include"])).replace('\\', '/')
             python_libs = str(Path(get_paths()["data"]) / 'libs').replace('\\', '/')
+            
 
-            zlib_include = str(Path('C:/vcpkg/packages/zlib_x64-windows/include')).replace('\\', '/')
-            zlib_lib = str(Path('C:/vcpkg/packages/zlib_x64-windows/lib')).replace('\\', '/')
+            vcpkg_path = Path(shutil.which(vcpkg)).parents[0]
+
+            zlib_include = str(vcpkg_path / 'packages/zlib_x64-windows/include').replace('\\', '/')
+            zlib_lib = str(vcpkg_path / 'packages/zlib_x64-windows/lib').replace('\\', '/')
 
             with open('project-config.jam', 'a') as fl:
                 print(f'using python : {sys.version_info[0]}.{sys.version_info[1]} : : {python_inc} : {python_libs} ;', file=fl)
@@ -183,6 +187,9 @@ class BuildRDKit(build_ext_orig):
         
         os.chdir(str('rdkit'))
 
+
+        vcpkg_path = str(Path(shutil.which(vcpkg)).parents[0]).replace('\\', '/')
+
         # Invoke cmake and compile RDKit
         options = [ 
             # Defines the paths to many include and libaray paths for windows
@@ -207,18 +214,18 @@ class BuildRDKit(build_ext_orig):
             f"-DRDK_INSTALL_STATIC_LIBS=OFF" if sys.platform == 'win32' else "",
 
             # for win 
-            f"-DCAIRO_INCLUDE_DIRS=C:/vcpkg/packages/cairo_x64-windows/include" if sys.platform == 'win32' else "",
-            f"-DCAIRO_LIBRARIES=C:/vcpkg/packages/cairo_x64-windows/lib/cairo.lib" if sys.platform == 'win32' else "",
+            f"-DCAIRO_INCLUDE_DIRS={vcpkg_path}/packages/cairo_x64-windows/include" if sys.platform == 'win32' else "",
+            f"-DCAIRO_LIBRARIES={vcpkg_path}/packages/cairo_x64-windows/lib/cairo.lib" if sys.platform == 'win32' else "",
             # zlib
-            f"-DZLIB_LIBRARIES=C:/vcpkg/packages/zlib_x64-windows/lib/zlib.lib" if sys.platform == 'win32' else "",
-            f"-DZLIB_INCLUDE_DIRS=C:/vcpkg/packages/zlib_x64-windows/include" if sys.platform == 'win32' else "",
+            f"-DZLIB_LIBRARIES={vcpkg_path}/packages/zlib_x64-windows/lib/zlib.lib" if sys.platform == 'win32' else "",
+            f"-DZLIB_INCLUDE_DIRS={vcpkg_path}/packages/zlib_x64-windows/include" if sys.platform == 'win32' else "",
 
             # freetype
-            f"-DFREETYPE_INCLUDE_DIRS=C:/vcpkg/packages/freetype_x64-windows/include" if sys.platform == 'win32' else "",
-            f"-DFREETYPE_LIBRARY=C:/vcpkg/packages/freetype_x64-windows/lib/freetype.lib" if sys.platform == 'win32' else "",
+            f"-DFREETYPE_INCLUDE_DIRS={vcpkg_path}/packages/freetype_x64-windows/include" if sys.platform == 'win32' else "",
+            f"-DFREETYPE_LIBRARY={vcpkg_path}/packages/freetype_x64-windows/lib/freetype.lib" if sys.platform == 'win32' else "",
             
             # eigen3
-            f"-DEIGEN3_INCLUDE_DIR=C:/vcpkg/packages/eigen3_x64-windows/include" if sys.platform == 'win32' else "",
+            f"-DEIGEN3_INCLUDE_DIR={vcpkg_path}/packages/eigen3_x64-windows/include" if sys.platform == 'win32' else "",
 
             # instruct to build x64 on windows
             "-Ax64" if sys.platform == 'win32' else "",
