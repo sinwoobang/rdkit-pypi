@@ -164,7 +164,10 @@ class BuildRDKit(build_ext_orig):
                 print(f' ', file=fl)
             
             cmds = [                
-                f'./b2 address-model=64 architecture=x86 link=static link=shared threading=single threading=multi --with-python --with-serialization --with-iostreams --with-system --with-regex --with-program_options --prefix={boost_install_path} -j 20 install',
+                f'./b2 address-model=64 architecture=x86 link=shared threading=single threading=multi ' \
+                f'variant=release ' \
+                f'--with-python --with-serialization --with-iostreams --with-system --with-regex --with-program_options ' \
+                f'--prefix={boost_install_path} -j 20 install',
             ]
             [check_call(c.split()) for c in cmds]
 
@@ -218,7 +221,8 @@ class BuildRDKit(build_ext_orig):
 
             # Boost              
             f"-DBOOST_ROOT={boost_install_path}",
-            f"-DBoost_NO_SYSTEM_PATHS=OFF",            
+            f"-DBoost_NO_SYSTEM_PATHS=OFF",
+            f"-DBoost_DEBUG=ON",        
 
             # Does not work (this is fixed in future rdkit versions I believe)
             f"-DRDK_INSTALL_STATIC_LIBS=OFF" if sys.platform == 'win32' else "",
