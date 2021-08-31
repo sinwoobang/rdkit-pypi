@@ -153,10 +153,14 @@ class BuildRDKit(build_ext_orig):
             zlib_include = vcpkg_path / 'packages/zlib_x64-windows/include'
             zlib_lib = vcpkg_path / 'packages/zlib_x64-windows/lib'
 
+            bzip2_include = vcpkg_path / 'packages/bzip2_x64-windows/include'
+            bzip2_lib = vcpkg_path / 'packages/bzip2_x64-windows/lib'
             with open('project-config.jam', 'a') as fl:
                 print(f'using python : {sys.version_info[0]}.{sys.version_info[1]} : : {towin(python_inc)} : {towin(python_libs)} ;', file=fl)
                 print(f' ', file=fl)
                 print(f'using zlib : 2 : <include>{towin(zlib_include)} <search>{towin(zlib_lib)} ;', file=fl)
+                print(f' ', file=fl)
+                print(f'using bzip2 : 1 : <include>{towin(bzip2_include)} <search>{towin(bzip2_lib)} ;', file=fl)
                 print(f' ', file=fl)
             
             cmds = [                
