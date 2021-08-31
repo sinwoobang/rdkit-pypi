@@ -222,7 +222,7 @@ class BuildRDKit(build_ext_orig):
             f"-DRDK_BUILD_CAIRO_SUPPORT=ON",
 
             # Boost              
-            f"-DBOOST_ROOT={boost_install_path}" if not appv else f"-DBOOST_ROOT=C:\Libraries\boost_1_69_0",
+            f"-DBOOST_ROOT={boost_install_path}" if not appv else f"-DBOOST_ROOT=C:/Libraries/boost_1_69_0",
             f"-DBoost_NO_SYSTEM_PATHS=OFF",
             f"-DBoost_DEBUG=ON",        
 
