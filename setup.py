@@ -163,8 +163,8 @@ class BuildRDKit(build_ext_orig):
                 print(f' ', file=fl)
                 print(f'using zlib : 2 : <include>{towin(zlib_include)} <search>{towin(zlib_lib)} ;', file=fl)
                 print(f' ', file=fl)
-                print(f'using bzip2 : 1 : <include>{towin(bzip2_include)} <search>{towin(bzip2_lib)} ;', file=fl)
-                print(f' ', file=fl)
+                # print(f'using bzip2 : 1 : <include>{towin(bzip2_include)} <search>{towin(bzip2_lib)} ;', file=fl)
+                # print(f' ', file=fl)
             
             cmds = [                
                 f'./b2 address-model=64 architecture=x86 link=static link=shared threading=single threading=multi ' \
@@ -181,6 +181,7 @@ class BuildRDKit(build_ext_orig):
             ]
             [check_call(c.split()) for c in cmds]
 
+        check_call(['ls', boost_install_path + '\lib'])
 
         os.chdir(str(cwd))
 
@@ -260,7 +261,7 @@ class BuildRDKit(build_ext_orig):
         
         cmds = [
             f"cmake -S . -B build {' '.join(options)} ",
-            f"cmake --build build --verbose -j 5 --config Release",
+            f"cmake --build build -j 5 --config Release",
             f"make -C build install -j 5"
         ]    
         [check_call(c.split()) for c in cmds]
