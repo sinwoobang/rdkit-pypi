@@ -119,9 +119,15 @@ class BuildRDKit(build_ext_orig):
 
         # Download and unpack Boost
         os.chdir(str(boost_build_path))
+
+
+        if sys.platform == 'win32':
+            ext.boost_download_url = 'https://boostorg.jfrog.io/native/main/release/1.67.0/source/boost_1_67_0.tar.gz'
+
         cmds = [
-            f'wget {ext.boost_download_url} --no-check-certificate -q',
+            f'wget {ext.boost_download_url} --no-check-certificate -q' 
             f'tar -xzf {Path(ext.boost_download_url).name}',]
+
         [check_call(c.split()) for c in cmds]
 
         # Compile Boost
@@ -168,7 +174,7 @@ class BuildRDKit(build_ext_orig):
             
             cmds = [                
                 f'./b2 address-model=64 architecture=x86 link=static link=shared threading=single threading=multi ' \
-                f'variant=release ' \
+                f'variant=release -d0 ' \
                 f'--with-python --with-serialization --with-iostreams --with-system --with-regex --with-program_options ' \
                 f'--prefix={boost_install_path} -j 20 install',
             ]
