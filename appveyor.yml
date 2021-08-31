@@ -14,6 +14,8 @@ init:
 
 install:    
   - python -m pip install scons
+  - git clone https://github.com/berolinux/boost-python
+  - cd boost-python
   - scons config --boost=C:\Libraries\boost_1_69_0 --python=C:\Python37
   - python -m pip install cibuildwheel==2.1.1
 
