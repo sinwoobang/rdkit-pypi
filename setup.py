@@ -225,7 +225,7 @@ class BuildRDKit(build_ext_orig):
             
 
             # Boost              
-            f"-DBOOST_ROOT={boost_install_path}" if not appv else f"-DBOOST_ROOT=C:/Boost",
+            f"-DBOOST_ROOT={boost_install_path}",
             f"-DBoost_NO_SYSTEM_PATHS=OFF",
             f"-DBoost_DEBUG=ON",        
 
