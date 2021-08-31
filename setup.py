@@ -120,12 +120,12 @@ class BuildRDKit(build_ext_orig):
         # Download and unpack Boost
         os.chdir(str(boost_build_path))
 
-        if sys.platform == 'win32':
-            ext.boost_download_url = 'https://boostorg.jfrog.io/artifactory/main/release/1.67.0/source/boost_1_67_0.tar.gz'
+
 
         cmds = [
             f'wget {ext.boost_download_url} --no-check-certificate -q',
-            f'tar -xzf {Path(ext.boost_download_url).name}',]
+            f'tar -xzf {Path(ext.boost_download_url).name}',
+            ]
 
         [check_call(c.split()) for c in cmds]
 
@@ -173,7 +173,7 @@ class BuildRDKit(build_ext_orig):
             
             cmds = [                
                 f'./b2 address-model=64 architecture=x86 link=static link=shared threading=single threading=multi ' \
-                f'variant=release -d0 ' \
+                f'variant=release -d0  --abbreviate-paths ' \
                 f'--with-python --with-serialization --with-iostreams --with-system --with-regex --with-program_options ' \
                 f'--prefix={boost_install_path} -j 20 install',
             ]
@@ -268,8 +268,8 @@ class BuildRDKit(build_ext_orig):
         
         cmds = [
             f"cmake -S . -B build {' '.join(options)} ",
-            f"cmake --build build -j 5 --config Release",
-            f"make -C build install -j 5"
+            f"cmake --build build -j 20 --config Release",
+            f"make -C build install -j 20"
         ]    
         [check_call(c.split()) for c in cmds]
         os.chdir(str(cwd))
@@ -297,7 +297,8 @@ setup(
     ext_modules=[
         RDKit(
             'rdkit',
-            boost_download_url='https://boostorg.jfrog.io/artifactory/main/release/1.73.0/source/boost_1_73_0.tar.gz',
+            # 1.73 does now compile on win for some reason
+            boost_download_url='https://boostorg.jfrog.io/artifactory/main/release/1.73.0/source/boost_1_73_0.tar.gz' if sys.platform == 'win32' else 'https://boostorg.jfrog.io/artifactory/main/release/1.67.0/source/boost_1_67_0.tar.gz',
             rdkit_tag='Release_2021_03_4'
             ),        
     ],
