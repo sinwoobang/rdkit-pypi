@@ -121,8 +121,9 @@ class BuildRDKit(build_ext_orig):
         os.chdir(str(boost_build_path))
 
         boost_url = ext.boost_download_url
+
         if sys.platform == 'win32':
-            boost_url = 'https://boostorg.jfrog.io/native/main/release/1.67.0/source/boost_1_67_0.tar.gz'
+            boost_url = 'https://boostorg.jfrog.io/artifactory/main/release/1.67.0/source/boost_1_67_0.tar.gz'
 
         cmds = [
             f'wget {boost_url} --no-check-certificate -q' 
@@ -299,6 +300,7 @@ setup(
         RDKit(
             'rdkit',
             boost_download_url='https://boostorg.jfrog.io/artifactory/main/release/1.73.0/source/boost_1_73_0.tar.gz',
+                               
             rdkit_tag='Release_2021_03_4'
             ),        
     ],
