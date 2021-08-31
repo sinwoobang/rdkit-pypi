@@ -15,7 +15,7 @@ init:
 install:  
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   - |
-     curl -LfsS -o faber.tar.gz https://github.com/stefanseefeld/faber/archive/refs/tags/release/0.4.2.zip
+     curl -LfsS -o faber.tar.gz https://github.com/stefanseefeld/faber/archive/refs/tags/release/0.4.2.tar.gz
      tar xf faber.tar.gz
      CD faber-release-0.4.2
      python setup.py install
