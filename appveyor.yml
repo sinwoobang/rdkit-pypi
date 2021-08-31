@@ -18,7 +18,7 @@ install:
      curl -LfsS -o faber.tar.gz https://github.com/stefanseefeld/faber/archive/refs/tags/release/0.4.tar.gz
      tar xf faber.tar.gz
      CD faber-release-0.4
-     export PYTHONHTTPSVERIFY=0
+     "SET PYTHONHTTPSVERIFY=0"
      python setup.py install
      CD ..
   # report the available MSVC compilers
