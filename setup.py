@@ -35,7 +35,10 @@ class RDKit(Extension):
 
 class BuildRDKit(build_ext_orig):
 
+    
     def run(self):
+        if sys.platform == 'win32':
+            self.build_temp = "C:\tmp"
 
         for ext in self.extensions:
 
