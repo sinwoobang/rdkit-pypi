@@ -1,4 +1,4 @@
-# jobs:
+jobs:
 # - job: linux
 #   pool: {vmImage: 'Ubuntu-16.04'}
 #   steps:
