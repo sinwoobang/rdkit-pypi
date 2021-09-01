@@ -110,9 +110,9 @@ class BuildRDKit(build_ext_orig):
         libs_boost_win = libs_boost.glob('*.lib')
 
         libs_boost = list(libs_boost_linux) + list(libs_boost_mac) + list(libs_boost_win) 
-
-        [copy_file(i, '/usr/local/lib' ) for i in libs_rdkit]
-        [copy_file(i, '/usr/local/lib' ) for i in libs_boost]
+        if platform != 'win32':
+            [copy_file(i, '/usr/local/lib' ) for i in libs_rdkit]
+            [copy_file(i, '/usr/local/lib' ) for i in libs_boost]
     
     def build_boost(self, ext):
         """Build the Boost libraries"""
