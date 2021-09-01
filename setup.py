@@ -63,11 +63,12 @@ class BuildRDKit(build_ext_orig):
         from shutil import copytree, rmtree
 
         # copy RDKit package
-        rdkit_root = Path(self.build_temp).absolute() / 'rdkit_install/' / 'lib'
         if platform == 'win32':
             rdkit_root = Path(self.build_temp).absolute() / 'rdkit_install/' / 'Lib'
-
-        rdkit_pyfiles = list(rdkit_root.glob('python*'))[0] / 'site-packages' / 'rdkit' 
+            rdkit_pyfiles = rdkit_root / 'site-packages' / 'rdkit' 
+        else:
+            rdkit_root = Path(self.build_temp).absolute() / 'rdkit_install/' / 'lib'
+            rdkit_pyfiles = list(rdkit_root.glob('python*'))[0] / 'site-packages' / 'rdkit' 
 
         # rdkit needs some files from the Data directory to run correctly 
         rdkit_data_path = Path(self.build_temp).absolute() / 'rdkit' / 'Data'
