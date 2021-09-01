@@ -38,7 +38,7 @@ before-build = [
     #  cairo:x64-windows freetype:x64-windows eigen3:x64-windows",
 ]
 
-environment = { temp='C:\\temp', RUNNER_TEMP='C:\\temp'}
+environment = { RUNNER_TEMP='C:\\temp'}
 
 
           
