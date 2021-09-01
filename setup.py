@@ -273,7 +273,7 @@ class BuildRDKit(build_ext_orig):
         cmds = [
             f"cmake -S . -B build {' '.join(options)} ",
             f"cmake --build build --verbose -j 20 --config Release",
-            f"cmake -C build install -j 20"
+            f"cmake --install build"
         ]    
         [check_call(c.split()) for c in cmds]
         os.chdir(str(cwd))
