@@ -239,8 +239,6 @@ class BuildRDKit(build_ext_orig):
 
             # Does not work (this is fixed in future rdkit versions I believe)
             f"-DRDK_INSTALL_STATIC_LIBS=OFF" if sys.platform == 'win32' else "",
-            # Path of tests s too long. Windows can't handle such long pathts.
-            f"-DRDK_TEST_MMFF_COMPLIANCE=OFF" if sys.platform == 'win32' else "",
 
             # for win 
             # cairo
