@@ -64,7 +64,7 @@ class BuildRDKit(build_ext_orig):
         rdkit_pyfiles = list(rdkit_root.glob('python*'))[0] / 'site-packages' / 'rdkit' 
 
         # rdkit needs some files from the Data directory to run correctly 
-        rdkit_data_path = Path(self.build_temp).absolute() / 'rdkit' / 'rdkit' / 'Data'
+        rdkit_data_path = Path(self.build_temp).absolute() / 'rdkit' / 'Data'
 
         # replace line with _share=... with _share = os.path.dirname(__file__) in RDPaths.py
         rdpaths = rdkit_pyfiles / 'RDPaths.py'
@@ -195,7 +195,7 @@ class BuildRDKit(build_ext_orig):
         """ Build RDKit """
 
         cwd = Path().absolute()
-        rdkit_build_path = Path(self.build_temp).absolute() / 'rdkit'
+        rdkit_build_path = Path(self.build_temp).absolute() 
         rdkit_build_path.mkdir(parents=True, exist_ok=True) 
 
         boost_install_path = Path(self.build_temp).absolute() / 'boost_install'
