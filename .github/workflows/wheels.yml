@@ -10,7 +10,7 @@ jobs:
     # continue-on-error: true
     strategy:
       matrix:
-        os: [ windows-2016]
+        os: [windows-2016]
 
     steps:
       - uses: actions/checkout@v2
@@ -26,10 +26,12 @@ jobs:
         with:
           platforms: all
       
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v3
-        
-
+      - name: Configure
+        if: runner.os == 'Windows'
+        run: |
+          set tmp=C:\tmp
+          set temp=C:\tmp
+   
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.1.1
 
