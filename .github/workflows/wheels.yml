@@ -32,13 +32,10 @@ jobs:
           mkdir C:\tmp
           set tmp=C:\tmp
           set temp=C:\tmp
+          set RUNNER_TEMP=C:\tmp
    
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.1.1
-        env:
-          tmp: C:\tmp
-          temp: C:\tmp
-          RUNNER_TEMP: C:\tmp
 
       - uses: actions/upload-artifact@v2
         with:
