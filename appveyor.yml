@@ -11,6 +11,7 @@ stack: python 3.7
 
 init:
 - cmd: set PATH=C:\Python37;C:\Python37\Scripts;%PATH%
+- cmd: mkdir C:\tmp
 - cmd: set tmp=C:\tmp
 - cmd: set temp=C:\tmp
 
