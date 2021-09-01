@@ -11,6 +11,8 @@ stack: python 3.7
 
 init:
 - cmd: set PATH=C:\Python37;C:\Python37\Scripts;%PATH%
+- cmd: set tmp=C:\tmp
+- cmd: set temp=C:\tmp
 
 install:
   - powershell -command New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWORD -Force
