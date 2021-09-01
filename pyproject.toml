@@ -30,7 +30,7 @@ repair-wheel-command = [
 ]
 
 [tool.cibuildwheel.windows]
-before-all = ["mkdir C:\\tmp"]
+before-all = ["mkdir C:\\temp"]
 
 before-build = [
     "choco install tartool wget sed pkgconfiglite",
@@ -38,7 +38,7 @@ before-build = [
     #  cairo:x64-windows freetype:x64-windows eigen3:x64-windows",
 ]
 
-environment = { RUNNER_TEMP='C:\\tmp'}
+environment = { temp='C:\\temp', tmp='C:\\temp', RUNNER_TEMP='C:\\temp'}
 
 
           
