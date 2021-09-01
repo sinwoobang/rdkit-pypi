@@ -260,6 +260,7 @@ class BuildRDKit(build_ext_orig):
             f"-DFREETYPE_INCLUDE_DIRS={towin(vcpkg_path / 'packages/freetype_x64-windows/include')}" if sys.platform == 'win32' else "",
             f"-DFREETYPE_LIBRARY={towin(vcpkg_path / 'packages/freetype_x64-windows/lib/freetype.lib')}" if sys.platform == 'win32' else "",
 
+            f"-DRDK_INSTALL_DLLS_MSVC=ON"  if sys.platform == 'win32' else "",
                         
             # eigen3
             # f"-DEIGEN3_INCLUDE_DIR={towin(vcpkg_path / 'packages/eigen3_x64-windows/include')}" if sys.platform == 'win32' else "",
