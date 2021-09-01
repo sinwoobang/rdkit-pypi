@@ -64,6 +64,9 @@ class BuildRDKit(build_ext_orig):
 
         # copy RDKit package
         rdkit_root = Path(self.build_temp).absolute() / 'rdkit_install/' / 'lib'
+        if platform == 'win32':
+            rdkit_root = Path(self.build_temp).absolute() / 'rdkit_install/' / 'Lib'
+
         rdkit_pyfiles = list(rdkit_root.glob('python*'))[0] / 'site-packages' / 'rdkit' 
 
         # rdkit needs some files from the Data directory to run correctly 
