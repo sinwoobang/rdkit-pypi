@@ -99,20 +99,22 @@ class BuildRDKit(build_ext_orig):
         # auditwheel finds the libs at /usr/local/lib
         libs_rdkit_linux = Path(rdkit_root).glob('*.so*')
         libs_rdkit_macos = Path(rdkit_root).glob('*dylib')
-        libs_rdkit_win = Path(rdkit_root).glob('*.lib')
-
-        libs_rdkit = list(libs_rdkit_linux) + list(libs_rdkit_macos) + list(libs_rdkit_win)
-
+        
+        libs_rdkit = list(libs_rdkit_linux) + list(libs_rdkit_macos)
         libs_boost = Path(self.build_temp).absolute() / 'boost_install' / 'lib'
 
         libs_boost_linux = libs_boost.glob('*.so*')
         libs_boost_mac = libs_boost.glob('*dylib')
-        libs_boost_win = libs_boost.glob('*.lib')
 
-        libs_boost = list(libs_boost_linux) + list(libs_boost_mac) + list(libs_boost_win) 
+        libs_boost = list(libs_boost_linux) + list(libs_boost_mac)
         if platform != 'win32':
             [copy_file(i, '/usr/local/lib' ) for i in libs_rdkit]
             [copy_file(i, '/usr/local/lib' ) for i in libs_boost]
+        else:
+            libs_rdkit_win = Path(rdkit_root).glob('*.dll')
+            libs_boost_win = libs_boost.glob('*.dll')
+            [copy_file(i, 'C://libs' ) for i in libs_rdkit_win]
+            [copy_file(i, 'C://libs' ) for i in libs_boost_win]
     
     def build_boost(self, ext):
         """Build the Boost libraries"""
