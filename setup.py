@@ -106,8 +106,8 @@ class BuildRDKit(build_ext_orig):
         libs_boost_linux = libs_boost.glob('*.so*')
         libs_boost_mac = libs_boost.glob('*dylib')
 
-        libs_boost = list(libs_boost_linux) + list(libs_boost_mac)
         if platform != 'win32':
+            libs_boost = list(libs_boost_linux) + list(libs_boost_mac)
             [copy_file(i, '/usr/local/lib' ) for i in libs_rdkit]
             [copy_file(i, '/usr/local/lib' ) for i in libs_boost]
         else:
