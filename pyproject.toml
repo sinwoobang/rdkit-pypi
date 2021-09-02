@@ -33,12 +33,11 @@ repair-wheel-command = [
 # before-all = ["mkdir C:\\temp"]
 
 before-build = [
+    "pip install delvewheel",
     "choco install tartool wget sed pkgconfiglite",
-    "vcpkg install zlib:x64-windows freetype:x64-windows bzip2:x64-windows" 
+    "vcpkg install zlib:x64-windows freetype:x64-windows bzip2:x64-windows" ,
     #  cairo:x64-windows freetype:x64-windows eigen3:x64-windows",
 ]
 
 environment = { TMP='C:\\temp', TEMP='C:\\temp', RUNNER_TEMP='C:\\temp'}
-
-
-          
+repair-wheel-command = "delvewheel repair -w {dest_dir} {wheel}"
