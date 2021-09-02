@@ -41,4 +41,4 @@ before-build = [
 ]
 
 environment = { TMP='C:\\temp', TEMP='C:\\temp', RUNNER_TEMP='C:\\temp'}
-repair-wheel-command = "delvewheel repair --add-path C:\\libs -w {dest_dir} {wheel}"
+repair-wheel-command = ["delvewheel show -v --add-path C:\\libs {wheel}", "delvewheel repair -v --add-path C:\\libs -w {dest_dir} {wheel}"]
