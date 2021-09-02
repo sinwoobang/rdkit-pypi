@@ -221,6 +221,7 @@ class BuildRDKit(build_ext_orig):
         
         os.chdir(str('rdkit'))
 
+
         # Invoke cmake and compile RDKit
         options = [ 
             # Defines the paths to many include and libaray paths for windows
@@ -249,26 +250,26 @@ class BuildRDKit(build_ext_orig):
             # for win 
             # cairo
             # f"-DRDK_BUILD_CAIRO_SUPPORT=ON",
-            # f"-DCAIRO_INCLUDE_DIRS={towin(vcpkg_path / f'packages/cairo_x64-windows/include') }" if sys.platform == 'win32' else "",
-            # f"-DCAIRO_LIBRARIES={towin(vcpkg_path / f'packages/cairo_x64-windows/lib/cairo.lib')}" if sys.platform == 'win32' else "",
+            # f"-DCAIRO_INCLUDE_DIRS={towin(vcpkg_path / 'packages/cairo_x64-windows/include') }" if sys.platform == 'win32' else "",
+            # f"-DCAIRO_LIBRARIES={towin(vcpkg_path / 'packages/cairo_x64-windows/lib/cairo.lib')}" if sys.platform == 'win32' else "",
 
             # zlib
-            f"-DZLIB_LIBRARIES={towin(vcpkg_path / f'packages/zlib_x64-windows/lib/zlib.lib')}" if sys.platform == 'win32' else "",
-            f"-DZLIB_LIBRARY={towin(vcpkg_path / f'packages/zlib_x64-windows/lib/zlib.lib')}" if sys.platform == 'win32' else "",
+            f"-DZLIB_LIBRARIES={towin(vcpkg_path / 'packages/zlib_x64-windows/lib/zlib.lib')}" if sys.platform == 'win32' else "",
+            f"-DZLIB_LIBRARY={towin(vcpkg_path / 'packages/zlib_x64-windows/lib/zlib.lib')}" if sys.platform == 'win32' else "",
 
-            f"-DZLIB_INCLUDE_DIRS={towin(vcpkg_path / f'packages/zlib_x64-windows/include')}" if sys.platform == 'win32' else "",
+            f"-DZLIB_INCLUDE_DIRS={towin(vcpkg_path / 'packages/zlib_x64-windows/include')}" if sys.platform == 'win32' else "",
 
             # freetype
-            f"-DFREETYPE_INCLUDE_DIRS={towin(vcpkg_path / f'packages/freetype_x64-windows/include')}" if sys.platform == 'win32' else "",
-            f"-DFREETYPE_LIBRARY={towin(vcpkg_path / f'packages/freetype_x64-windows/lib/freetype.lib')}" if sys.platform == 'win32' else "",
+            f"-DFREETYPE_INCLUDE_DIRS={towin(vcpkg_path / 'packages/freetype_x64-windows/include')}" if sys.platform == 'win32' else "",
+            f"-DFREETYPE_LIBRARY={towin(vcpkg_path / 'packages/freetype_x64-windows/lib/freetype.lib')}" if sys.platform == 'win32' else "",
 
             # f"-DRDK_INSTALL_DLLS_MSVC=ON"  if sys.platform == 'win32' else "",
                         
             # eigen3
-            f"-DEIGEN3_INCLUDE_DIR={towin(vcpkg_path / f'packages/eigen3_x64-windows/include')}" if sys.platform == 'win32' else "",
+            f"-DEIGEN3_INCLUDE_DIR={towin(vcpkg_path / 'packages/eigen3_x64-windows/include')}" if sys.platform == 'win32' else "",
 
             # instruct to build x64 on windows
-            f"-Ax64" if sys.platform == 'win32' else "",
+            "-Ax64" if sys.platform == 'win32' else "",
 
             # Mac needs these to compile 
             f"-DCMAKE_C_FLAGS=-Wno-implicit-function-declaration" if sys.platform != 'win32' else "",
