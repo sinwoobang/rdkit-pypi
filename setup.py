@@ -266,7 +266,7 @@ class BuildRDKit(build_ext_orig):
             # f"-DRDK_INSTALL_DLLS_MSVC=ON"  if sys.platform == 'win32' else "",
                         
             # eigen3
-            f"-DEIGEN3_INCLUDE_DIR={towin(vcpkg_path / 'packages/eigen3_x64-windows/include')}" if sys.platform == 'win32' else "",
+            # f"-DEIGEN3_INCLUDE_DIR={towin(vcpkg_path / 'packages/eigen3_x64-windows/include')}" if sys.platform == 'win32' else "",
 
             # instruct to build x64 on windows
             "-Ax64" if sys.platform == 'win32' else "",
