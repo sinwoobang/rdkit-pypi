@@ -274,8 +274,8 @@ class BuildRDKit(build_ext_orig):
             "-Ax64" if sys.platform == 'win32' else "",
 
             # Mac needs these to compile 
-            f"-DCMAKE_C_FLAGS=-Wno-implicit-function-declaration" if sys.platform != 'win32' else "/d2FH4-",
-            f"-DCMAKE_CXX_FLAGS=-Wno-implicit-function-declaration" if sys.platform != 'win32' else "/d2FH4-",
+            f"-DCMAKE_C_FLAGS=-Wno-implicit-function-declaration" if sys.platform != 'win32' else "-D2FH4-",
+            f"-DCMAKE_CXX_FLAGS=-Wno-implicit-function-declaration" if sys.platform != 'win32' else "-Dd2FH4-",
 
             f"-DCMAKE_INSTALL_PREFIX={rdkit_install_path}",
         ]
