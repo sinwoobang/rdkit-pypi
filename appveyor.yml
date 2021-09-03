@@ -2,15 +2,15 @@ environment:
   matrix:
     # - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
     #   APPVEYOR_JOB_NAME: "python37-x64-ubuntu"
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      APPVEYOR_JOB_NAME: "python37-x64-vs2017"
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      APPVEYOR_JOB_NAME: "python38-x64-vs2019"
     # - APPVEYOR_BUILD_WORKER_IMAGE: macos-mojave
       # APPVEYOR_JOB_NAME: "python37-x64-macos-mojave"
 
-stack: python 3.7
+stack: python 3.8
 
 init:
-- cmd: set PATH=C:\Python37;C:\Python37\Scripts;%PATH%
+- cmd: set PATH=C:\Python38;C:\Python38\Scripts;%PATH%
 - cmd: mkdir C:\tmp
 - cmd: set tmp=C:\tmp
 - cmd: set temp=C:\tmp
