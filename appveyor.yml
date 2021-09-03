@@ -4,6 +4,7 @@ environment:
     #   APPVEYOR_JOB_NAME: "python37-x64-ubuntu"
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       APPVEYOR_JOB_NAME: "python38-x64-vs2017"
+      APPVEYOR_BUILD_WORKER_CLOUD: tyrion Docker
     # - APPVEYOR_BUILD_WORKER_IMAGE: macos-mojave
       # APPVEYOR_JOB_NAME: "python37-x64-macos-mojave"
 
