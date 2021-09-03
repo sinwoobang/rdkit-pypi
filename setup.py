@@ -256,7 +256,7 @@ class BuildRDKit(build_ext_orig):
             # cairo
             f"-DRDK_BUILD_CAIRO_SUPPORT=ON",
             f"-DCAIRO_INCLUDE_DIR={towin(vcpkg_include_path)}" if sys.platform == 'win32' else "",
-            f"-DCAIRO_LIBRARY_DIR={towin(vcpkg_lib_path / 'cairo.lib')}" if sys.platform == 'win32' else "",
+            f"-DCAIRO_LIBRARY_DIR={towin(vcpkg_lib_path)}" if sys.platform == 'win32' else "",
 
             # f"-DCAIRO_INCLUDE_DIRS={towin(vcpkg_include_path)}" if sys.platform == 'win32' else "",
             
