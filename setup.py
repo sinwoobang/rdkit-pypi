@@ -278,6 +278,7 @@ class BuildRDKit(build_ext_orig):
             f"-DCMAKE_CXX_FLAGS=-Wno-implicit-function-declaration" if sys.platform != 'win32' else "-DCMAKE_CXX_FLAGS=/d2FH4-",
 
             f"-DCMAKE_INSTALL_PREFIX={rdkit_install_path}",
+            f"-DCMAKE_BUILD_TYPE=Release",
         ]
         
         cmds = [
