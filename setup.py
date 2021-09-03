@@ -113,8 +113,10 @@ class BuildRDKit(build_ext_orig):
         else:
             libs_rdkit_win = Path(rdkit_root).glob('*.dll')
             libs_boost_win = libs_boost.glob('*.dll')
+            libs_vcpkg = (vcpkg_path / 'packages').glob('**/*.dll')
             [copy_file(i, 'C://libs' ) for i in libs_rdkit_win]
             [copy_file(i, 'C://libs' ) for i in libs_boost_win]
+            [copy_file(i, 'C://libs' ) for i in libs_vcpkg]
     
     def build_boost(self, ext):
         """Build the Boost libraries"""
