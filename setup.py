@@ -222,7 +222,11 @@ class BuildRDKit(build_ext_orig):
         [check_call(c.split()) for c in cmds]
         
         os.chdir(str('rdkit'))
-
+        
+        # all includes are here
+        vcpkg_install_path = vcpkg_path / 'installed' / 'x64-windows' 
+        vcpkg_include_path = vcpkg_path / 'installed' / 'x64-windows' / 'include'
+        vcpkg_lib_path = vcpkg_path / 'installed' / 'x64-windows' / 'lib'
 
         # Invoke cmake and compile RDKit
         options = [ 
@@ -239,7 +243,6 @@ class BuildRDKit(build_ext_orig):
             f"-DRDK_BUILD_AVALON_SUPPORT=ON",
             f"-DRDK_BUILD_PYTHON_WRAPPERS=ON",
             f"-DRDK_INSTALL_INTREE=OFF",
-            
 
             # Boost              
             f"-DBOOST_ROOT={boost_install_path}",
@@ -252,22 +255,25 @@ class BuildRDKit(build_ext_orig):
             # for win 
             # cairo
             f"-DRDK_BUILD_CAIRO_SUPPORT=ON",
-            f"-DCAIRO_INCLUDE_DIRS={towin(vcpkg_path / 'packages/cairo_x64-windows/include') }" if sys.platform == 'win32' else "",
-            f"-DCAIRO_LIBRARIES={towin(vcpkg_path / 'packages/cairo_x64-windows/lib/cairo.lib')}" if sys.platform == 'win32' else "",
+            f"-DCAIRO_INCLUDE_DIR={towin(vcpkg_include_path)}" if sys.platform == 'win32' else "",
+            f"-DCAIRO_LIBRARY_DIR={towin(vcpkg_lib_path / 'cairo.lib')}" if sys.platform == 'win32' else "",
 
+            # f"-DCAIRO_INCLUDE_DIRS={towin(vcpkg_include_path)}" if sys.platform == 'win32' else "",
+            
             # zlib
-            f"-DZLIB_LIBRARIES={towin(vcpkg_path / 'packages/zlib_x64-windows/lib/zlib.lib')}" if sys.platform == 'win32' else "",
-            f"-DZLIB_LIBRARY={towin(vcpkg_path / 'packages/zlib_x64-windows/lib/zlib.lib')}" if sys.platform == 'win32' else "",
+            f"-DZLIB_ROOT={towin(vcpkg_install_path)}" if sys.platform == 'win32' else "",
 
-            f"-DZLIB_INCLUDE_DIRS={towin(vcpkg_path / 'packages/zlib_x64-windows/include')}" if sys.platform == 'win32' else "",
+            # f"-DZLIB_LIBRARIES={towin(vcpkg_lib_path / 'zlib.lib')}" if sys.platform == 'win32' else "",
+            # f"-DZLIB_LIBRARY={towin(vcpkg_lib_path / 'zlib.lib')}" if sys.platform == 'win32' else "",
+            # f"-DZLIB_INCLUDE_DIRS={towin(vcpkg_include_path)}" if sys.platform == 'win32' else "",
 
             # freetype
-            f"-DFREETYPE_INCLUDE_DIRS={towin(vcpkg_path / 'packages/freetype_x64-windows/include')}" if sys.platform == 'win32' else "",
-            f"-DFREETYPE_LIBRARY={towin(vcpkg_path / 'packages/freetype_x64-windows/lib/freetype.lib')}" if sys.platform == 'win32' else "",
+            # f"-DFREETYPE_INCLUDE_DIRS={towin(vcpkg_include_path)}" if sys.platform == 'win32' else "",
+            # f"-DFREETYPE_LIBRARY={towin(vcpkg_lib_path / 'freetype.lib')}" if sys.platform == 'win32' else "",
+            f"-DFREETYPE_DIR={towin(vcpkg_install_path)}" if sys.platform == 'win32' else "",
 
-                        
             # eigen3
-            f"-DEIGEN3_INCLUDE_DIR={towin(vcpkg_path / 'packages/eigen3_x64-windows/include')}" if sys.platform == 'win32' else "",
+            f"-DEIGEN3_INCLUDE_DIR={towin(vcpkg_include_path)}" if sys.platform == 'win32' else "",
 
             # instruct to build x64 on windows
             "-Ax64" if sys.platform == 'win32' else "",
