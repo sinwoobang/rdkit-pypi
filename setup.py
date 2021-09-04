@@ -268,9 +268,9 @@ class BuildRDKit(build_ext_orig):
             # f"-DZLIB_INCLUDE_DIRS={towin(vcpkg_include_path)}" if sys.platform == 'win32' else "",
 
             # freetype
-            # f"-DFREETYPE_INCLUDE_DIRS={towin(vcpkg_include_path)}" if sys.platform == 'win32' else "",
-            # f"-DFREETYPE_LIBRARY={towin(vcpkg_lib_path / 'freetype.lib')}" if sys.platform == 'win32' else "",
-            f"-DFREETYPE_DIR={towin(vcpkg_install_path)}" if sys.platform == 'win32' else "",
+            f"-DFREETYPE_INCLUDE_DIRS={towin(vcpkg_include_path)}" if sys.platform == 'win32' else "",
+            f"-DFREETYPE_LIBRARY={towin(vcpkg_lib_path / 'freetype.lib')}" if sys.platform == 'win32' else "",
+            # f"-DFREETYPE_DIR={towin(vcpkg_install_path)}" if sys.platform == 'win32' else "",
 
             # eigen3
             f"-DEIGEN3_INCLUDE_DIR={towin(vcpkg_include_path)}" if sys.platform == 'win32' else "",
