@@ -113,7 +113,7 @@ class BuildRDKit(build_ext_orig):
         else:
             libs_rdkit_win = Path(rdkit_root).glob('*.dll')
             libs_boost_win = libs_boost.glob('*.dll')
-            libs_vcpkg = (vcpkg_path / 'packages').glob('**/*.dll')
+            libs_vcpkg = (vcpkg_path / 'installed' / 'x64-windows' / 'lib').glob('*.dll')
             [copy_file(i, 'C://libs' ) for i in libs_rdkit_win]
             [copy_file(i, 'C://libs' ) for i in libs_boost_win]
             [copy_file(i, 'C://libs' ) for i in libs_vcpkg]
@@ -282,9 +282,8 @@ class BuildRDKit(build_ext_orig):
             f"-DCMAKE_C_FLAGS=-Wno-implicit-function-declaration" if sys.platform == 'darwin' else "", 
             f"-DCMAKE_CXX_FLAGS=-Wno-implicit-function-declaration" if sys.platform == 'darwin' else "", 
 
-            f'-DCMAKE_CXX_FLAGS="/d2FH4"' if sys.platform == 'win32' else "", 
-            f'-DCMAKE_SHARED_LINKER_FLAGS="/d2:-FH4-"' if sys.platform == 'win32' else "", 
-            
+            # f'-DCMAKE_CXX_FLAGS="/d2FH4"' if sys.platform == 'win32' else "", 
+            # f'-DCMAKE_SHARED_LINKER_FLAGS="/d2:-FH4-"' if sys.platform == 'win32' else "", 
 
             f"-DCMAKE_INSTALL_PREFIX={rdkit_install_path}",
             f"-DCMAKE_BUILD_TYPE=Release",
