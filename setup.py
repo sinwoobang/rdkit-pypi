@@ -282,8 +282,8 @@ class BuildRDKit(build_ext_orig):
             f"-DCMAKE_C_FLAGS=-Wno-implicit-function-declaration" if sys.platform == 'darwin' else "", 
             f"-DCMAKE_CXX_FLAGS=-Wno-implicit-function-declaration" if sys.platform == 'darwin' else "", 
 
-            f"-DCMAKE_CXX_FLAGS=/d2FH4" if sys.platform == 'win32' else "", 
-            f"-DCMAKE_SHARED_LINKER_FLAGS=/d2:-FH4-" if sys.platform == 'win32' else "", 
+            f'-DCMAKE_CXX_FLAGS="/d2FH4"' if sys.platform == 'win32' else "", 
+            f'-DCMAKE_SHARED_LINKER_FLAGS="/d2:-FH4-"' if sys.platform == 'win32' else "", 
             
 
             f"-DCMAKE_INSTALL_PREFIX={rdkit_install_path}",
@@ -292,7 +292,7 @@ class BuildRDKit(build_ext_orig):
         
         cmds = [
             f"cmake -S . -B build {' '.join(options)} ",
-            f"cmake --build build -j 10 --config Release",
+            f"cmake --build build --verbose -j 10 --config Release",
             f"cmake --install build"
         ]    
         [check_call(c.split()) for c in cmds]
