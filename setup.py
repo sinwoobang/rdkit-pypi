@@ -282,6 +282,10 @@ class BuildRDKit(build_ext_orig):
             f"-DCMAKE_C_FLAGS=-Wno-implicit-function-declaration" if sys.platform == 'darwin' else "", 
             f"-DCMAKE_CXX_FLAGS=-Wno-implicit-function-declaration" if sys.platform == 'darwin' else "", 
 
+            f"-DCMAKE_CXX_FLAGS=/d2FH4" if sys.platform == 'win32' else "", 
+            f"-DCMAKE_SHARED_LINKER_FLAGS=/d2:-FH4-" if sys.platform == 'win32' else "", 
+            
+
             f"-DCMAKE_INSTALL_PREFIX={rdkit_install_path}",
             f"-DCMAKE_BUILD_TYPE=Release",
         ]
