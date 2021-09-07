@@ -113,7 +113,9 @@ class BuildRDKit(build_ext_orig):
         else:
             libs_rdkit_win = Path(rdkit_root).glob('*.dll')
             libs_boost_win = libs_boost.glob('*.dll')
-            libs_vcpkg = (vcpkg_path / 'installed' / 'x64-windows' / 'lib').glob('*.dll')
+            
+            # libs_vcpkg = (vcpkg_path / 'installed' / 'x64-windows' / 'bin').glob('*.dll')
+            libs_vcpkg = [vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'bz2.dll', vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'cairo-2.dll' ]
             [copy_file(i, 'C://libs' ) for i in libs_rdkit_win]
             [copy_file(i, 'C://libs' ) for i in libs_boost_win]
             [copy_file(i, 'C://libs' ) for i in libs_vcpkg]
