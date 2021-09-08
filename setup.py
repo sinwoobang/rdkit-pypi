@@ -115,7 +115,11 @@ class BuildRDKit(build_ext_orig):
             libs_boost_win = libs_boost.glob('*.dll')
             
             # libs_vcpkg = (vcpkg_path / 'installed' / 'x64-windows' / 'bin').glob('*.dll')
-            libs_vcpkg = [vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'bz2.dll', vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'cairo-2.dll' ]
+            libs_vcpkg = [vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'bz2.dll',
+                          vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'cairo-2.dll',
+                          vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'libpng16.dl',
+                          vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'fontconfig-1.dll',
+                          ]
             [copy_file(i, 'C://libs' ) for i in libs_rdkit_win]
             [copy_file(i, 'C://libs' ) for i in libs_boost_win]
             [copy_file(i, 'C://libs' ) for i in libs_vcpkg]
