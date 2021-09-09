@@ -119,6 +119,9 @@ class BuildRDKit(build_ext_orig):
                           vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'cairo-2.dll',
                           vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'libpng16.dll',
                           vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'fontconfig-1.dll',
+                          vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'libexpat.dll',
+                          vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'iconv-2.dll',
+                          vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'intl-8.dll',
                           ]
             [copy_file(i, 'C://libs' ) for i in libs_rdkit_win]
             [copy_file(i, 'C://libs' ) for i in libs_boost_win]
