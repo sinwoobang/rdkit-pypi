@@ -241,8 +241,8 @@ class BuildRDKit(build_ext_orig):
 
             # Boost              
             f"-DBOOST_ROOT={boost_install_path}",
-            f"-DBoost_NO_SYSTEM_PATHS=OFF",
-            f"-DBoost_DEBUG=ON",        
+            f"-DBoost_NO_SYSTEM_PATHS=ON",
+            f"-DBoost_DEBUG=OFF",        
 
             # Does not work (this is fixed in future rdkit versions I believe)
             f"-DRDK_INSTALL_STATIC_LIBS=OFF" if sys.platform == 'win32' else "",
