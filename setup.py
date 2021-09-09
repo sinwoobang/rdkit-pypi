@@ -9,16 +9,12 @@ import shutil
 
 from pathlib import Path
 
-appv = False
-# get vcpkg path
-if Path('C:/Tools/vcpkg').exists():
-    vcpkg_path = Path('C:/Tools/vcpkg')
-    appv = True
-else:
-    vcpkg_path = Path('C:/vcpkg')
+# get vcpkg path on Github
+vcpkg_path = Path('C:/vcpkg')
 
 
-def towin(pt):
+def towin(pt: Path):
+    """Returns a windows path from a Path object"""
     return str(pt).replace('\\', '/')
 
 with open("README.md", "r", encoding="utf-8") as fh:
@@ -34,17 +30,10 @@ class RDKit(Extension):
 
 
 class BuildRDKit(build_ext_orig):
-
-    
     def run(self):
-        # if sys.platform == 'win32':
-        #     self.build_temp = "C:\tmp"
-
         for ext in self.extensions:
-
             # Build boot
             self.build_boost(ext)
-
             # Then RDKit
             self.build_rdkit(ext)
             # Copy files so that a wheels package can be created
@@ -62,7 +51,7 @@ class BuildRDKit(build_ext_orig):
         from distutils.file_util import copy_file
         from shutil import copytree, rmtree
 
-        # copy RDKit package
+        # copy RDKit
         if platform == 'win32':
             rdkit_root = Path(self.build_temp).absolute() / 'rdkit_install/' / 'Lib'
             rdkit_pyfiles = rdkit_root / 'site-packages' / 'rdkit' 
@@ -99,17 +88,16 @@ class BuildRDKit(build_ext_orig):
         # auditwheel finds the libs at /usr/local/lib
         libs_rdkit_linux = Path(rdkit_root).glob('*.so*')
         libs_rdkit_macos = Path(rdkit_root).glob('*dylib')
-        
         libs_rdkit = list(libs_rdkit_linux) + list(libs_rdkit_macos)
-        libs_boost = Path(self.build_temp).absolute() / 'boost_install' / 'lib'
 
+        libs_boost = Path(self.build_temp).absolute() / 'boost_install' / 'lib'
         libs_boost_linux = libs_boost.glob('*.so*')
         libs_boost_mac = libs_boost.glob('*dylib')
+        libs_boost_tmp = list(libs_boost_linux) + list(libs_boost_mac)
 
         if platform != 'win32':
-            libs_boost = list(libs_boost_linux) + list(libs_boost_mac)
             [copy_file(i, '/usr/local/lib' ) for i in libs_rdkit]
-            [copy_file(i, '/usr/local/lib' ) for i in libs_boost]
+            [copy_file(i, '/usr/local/lib' ) for i in libs_boost_tmp]
         else:
             libs_rdkit_win = Path(rdkit_root).glob('*.dll')
             libs_boost_win = libs_boost.glob('*.dll')
@@ -139,8 +127,6 @@ class BuildRDKit(build_ext_orig):
 
         # Download and unpack Boost
         os.chdir(str(boost_build_path))
-
-
 
         cmds = [
             f'wget {ext.boost_download_url} --no-check-certificate -q',
@@ -261,39 +247,30 @@ class BuildRDKit(build_ext_orig):
             # Does not work (this is fixed in future rdkit versions I believe)
             f"-DRDK_INSTALL_STATIC_LIBS=OFF" if sys.platform == 'win32' else "",
 
-            # for win 
+            # ##### for windows 
             # cairo
             f"-DRDK_BUILD_CAIRO_SUPPORT=ON",
             f"-DCAIRO_INCLUDE_DIR={towin(vcpkg_include_path)}" if sys.platform == 'win32' else "",
             f"-DCAIRO_LIBRARY_DIR={towin(vcpkg_lib_path)}" if sys.platform == 'win32' else "",
-
-            # f"-DCAIRO_INCLUDE_DIRS={towin(vcpkg_include_path)}" if sys.platform == 'win32' else "",
             
             # zlib
             f"-DZLIB_ROOT={towin(vcpkg_install_path)}" if sys.platform == 'win32' else "",
 
-            # f"-DZLIB_LIBRARIES={towin(vcpkg_lib_path / 'zlib.lib')}" if sys.platform == 'win32' else "",
-            # f"-DZLIB_LIBRARY={towin(vcpkg_lib_path / 'zlib.lib')}" if sys.platform == 'win32' else "",
-            # f"-DZLIB_INCLUDE_DIRS={towin(vcpkg_include_path)}" if sys.platform == 'win32' else "",
-
             # freetype
             f"-DFREETYPE_INCLUDE_DIRS={towin(vcpkg_include_path)}" if sys.platform == 'win32' else "",
             f"-DFREETYPE_LIBRARY={towin(vcpkg_lib_path / 'freetype.lib')}" if sys.platform == 'win32' else "",
-            # f"-DFREETYPE_DIR={towin(vcpkg_install_path)}" if sys.platform == 'win32' else "",
 
             # eigen3
             f"-DEIGEN3_INCLUDE_DIR={towin(vcpkg_include_path)}" if sys.platform == 'win32' else "",
 
-            # instruct to build x64 on windows
+            # instruct to build x64
             "-Ax64" if sys.platform == 'win32' else "",
 
-            # Mac needs these to compile 
+            # Mac needs these flags to compile 
             f"-DCMAKE_C_FLAGS=-Wno-implicit-function-declaration" if sys.platform == 'darwin' else "", 
             f"-DCMAKE_CXX_FLAGS=-Wno-implicit-function-declaration" if sys.platform == 'darwin' else "", 
 
-            # f'-DCMAKE_CXX_FLAGS="/d2FH4"' if sys.platform == 'win32' else "", 
-            # f'-DCMAKE_SHARED_LINKER_FLAGS="/d2:-FH4-"' if sys.platform == 'win32' else "", 
-
+            # build stuff
             f"-DCMAKE_INSTALL_PREFIX={rdkit_install_path}",
             f"-DCMAKE_BUILD_TYPE=Release",
         ]
