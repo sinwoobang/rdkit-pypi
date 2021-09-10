@@ -102,17 +102,19 @@ class BuildRDKit(build_ext_orig):
             libs_rdkit_win = Path(rdkit_root).glob('*.dll')
             libs_boost_win = libs_boost.glob('*.dll')
             
-            # libs_vcpkg = (vcpkg_path / 'installed' / 'x64-windows' / 'bin').glob('*.dll')
-            libs_vcpkg = [vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'bz2.dll',
-                          vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'cairo-2.dll',
-                          vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'libpng16.dll',
-                          vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'fontconfig-1.dll',
-                          vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'libexpat.dll',
-                          vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'iconv-2.dll',
-                          vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'intl-8.dll',
-                          vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'freetype.dll',
-                          vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'brotlidec.dll',
-                          ]
+            libs_vcpkg = list((vcpkg_path / 'installed' / 'x64-windows' / 'bin').glob('*.dll'))
+            # libs_vcpkg = [vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'bz2.dll',
+            #               vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'cairo-2.dll',
+            #               vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'libpng16.dll',
+            #               vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'fontconfig-1.dll',
+            #               vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'libexpat.dll',
+            #               vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'iconv-2.dll',
+            #               vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'intl-8.dll',
+            #               vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'freetype.dll',
+            #               vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'brotlidec.dll',
+            #               vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'zlib1.dll',
+            #               vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'brotlicommon.dll',
+            #               ]
             [copy_file(i, 'C://libs' ) for i in libs_rdkit_win]
             [copy_file(i, 'C://libs' ) for i in libs_boost_win]
             [copy_file(i, 'C://libs' ) for i in libs_vcpkg]
