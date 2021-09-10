@@ -111,6 +111,7 @@ class BuildRDKit(build_ext_orig):
                           vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'iconv-2.dll',
                           vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'intl-8.dll',
                           vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'freetype.dll',
+                          vcpkg_path / 'installed' / 'x64-windows' / 'bin' / 'brotlidec.dll',
                           ]
             [copy_file(i, 'C://libs' ) for i in libs_rdkit_win]
             [copy_file(i, 'C://libs' ) for i in libs_boost_win]
