@@ -33,7 +33,7 @@ class BuildRDKit(build_ext_orig):
     def run(self):
         for ext in self.extensions:
             # Build boot
-            self.build_boost(ext)
+            # self.build_boost(ext)
             # Then RDKit
             self.build_rdkit(ext)
             # Copy files so that a wheels package can be created
@@ -209,14 +209,8 @@ class BuildRDKit(build_ext_orig):
 
         rdkit_install_path = Path(self.build_temp).absolute() / 'rdkit_install'
         rdkit_install_path.mkdir(parents=True, exist_ok=True)
-
-        # Clone RDKit from git at rdkit_tag
-        os.chdir(str(rdkit_build_path))
-        cmds = [
-            f'git clone -b {ext.rdkit_tag} https://github.com/rdkit/rdkit'
-            ]
-        [check_call(c.split()) for c in cmds]
         
+        # added as submodule
         os.chdir(str('rdkit'))
         
         # all includes are here

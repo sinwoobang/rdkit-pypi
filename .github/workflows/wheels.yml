@@ -22,15 +22,18 @@ jobs:
       - uses: lukka/get-cmake@latest
 
       - name: Restore artifacts, or setup vcpkg (do not install any package)
-        uses: lukka/run-vcpkg@v10 
+        uses: lukka/run-vcpkg@v10
+        with:
+          runVcpkgInstall: true
 
-      # - name: Install Python
-      #   uses: actions/setup-python@v2
-      #   with:
-      #     python-version: '3.7'
 
-      # - name: Build wheels
-      #   uses: pypa/cibuildwheel@v2.2.2
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.2.2
 
       # - uses: actions/upload-artifact@v2
       #   with:

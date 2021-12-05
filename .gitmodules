@@ -1,3 +1,6 @@
 [submodule "vcpkg"]
 	path = vcpkg
 	url = https://github.com/Microsoft/vcpkg
+[submodule "rdkit"]
+	path = rdkit
+	url = https://github.com/rdkit/rdkit

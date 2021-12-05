@@ -1,0 +1,11 @@
+{
+    "name": "RDKit",
+    "version": "1.0.0",
+    "dependencies": [
+        "zlib",
+        "freetype",
+        "bzip2",
+        "cairo",
+        "eigen3"
+    ]
+}
