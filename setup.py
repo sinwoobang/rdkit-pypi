@@ -404,19 +404,6 @@ setup(
     install_requires=[
           'numpy>=1.19',
       ],
-    # ext_modules=[
-    #     RDKit(
-    #         'rdkit',
-    #         # 1.73 does now compile on win for some reason
-    #         boost_download_urls = {
-    #             'win': 'https://boostorg.jfrog.io/artifactory/main/release/1.69.0/source/boost_1_69_0.tar.gz',
-    #             'mac': 'https://boostorg.jfrog.io/artifactory/main/release/1.76.0/source/boost_1_76_0.tar.gz',
-    #             'linux': 'https://boostorg.jfrog.io/artifactory/main/release/1.76.0/source/boost_1_76_0.tar.gz',
-    #         },
-    #         rdkit_tag='Release_2021_09_2'
-    #         ),        
-    # ],
-    # cmdclass=dict(build_ext=BuildRDKit),
     ext_modules=[CMakeExtension("rdkit-pypi", sourcedir='rdkit')],
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False,
