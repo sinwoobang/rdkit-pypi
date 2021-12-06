@@ -1,5 +1,5 @@
 {
-    "name": "RDKit",
+    "name": "rdkit",
     "version": "1.0.0",
     "dependencies": [
         "zlib",
