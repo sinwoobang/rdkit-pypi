@@ -65,6 +65,8 @@ before-build = [
 #    "choco install tartool wget sed pkgconfiglite",
 ]
 
-environment = { TMP='C:\\temp', TEMP='C:\\temp', RUNNER_TEMP='C:\\temp', 
-                CMAKE_ARGS='-DRDK_BUILD_PYTHON_WRAPPERS=ON -DCMAKE_TOOLCHAIN_FILE=C:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake'}
 repair-wheel-command = ["delvewheel show -v --add-path C:\\libs {wheel}", "delvewheel repair -v  --add-path C:\\libs -w {dest_dir} {wheel}"]
+
+[tool.cibuildwheel.windows.environment]
+CMAKE_ARGS = '-DRDK_BUILD_PYTHON_WRAPPERS=ON -DCMAKE_TOOLCHAIN_FILE=D:/a/rdkit-pypi/rdkit-pypi/vcpkg/scripts/buildsystems/vcpkg.cmake'
+
