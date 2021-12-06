@@ -295,6 +295,17 @@ class CMakeExtension(Extension):
 
 class CMakeBuild(build_ext_orig):
     def build_extension(self, ext):
+
+        # Install boots for the correct python version
+        # Need to replace "${CURRENT_INSTALLED_DIR}/include/python3.*" in the b2-options files
+        b2_options = 'D:/a/rdkit-pypi/rdkit-pypi/vcpkg/ports/boost-python/b2-options.cmake'
+        call(["sed", "-i", f'/file(GLOB python3_include_dir/c\file(GLOB python3_include_dir {get_paths()["include"]})', b2_options])
+
+        # Call vcpkg remove and install
+        check_call("D:/a/rdkit-pypi/rdkit-pypi/vckpg/vckpg remove boost-python".split())
+        check_call("D:/a/rdkit-pypi/rdkit-pypi/vckpg/vckpg install boost-python".split())
+
+
         extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
 
         # required for auto-detection & inclusion of auxiliary "native" libs
