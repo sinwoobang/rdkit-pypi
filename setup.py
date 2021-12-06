@@ -302,8 +302,8 @@ class CMakeBuild(build_ext_orig):
         call(["sed", "-i", f'/file(GLOB python3_include_dir/c\file(GLOB python3_include_dir {get_paths()["include"]})', b2_options])
 
         # Call vcpkg remove and install
-        check_call("D:/a/rdkit-pypi/rdkit-pypi/vckpg/vckpg remove boost-python".split())
-        check_call("D:/a/rdkit-pypi/rdkit-pypi/vckpg/vckpg install boost-python".split())
+        check_call("D:/a/rdkit-pypi/rdkit-pypi/vcpkg/vcpkg remove boost-python".split())
+        check_call("D:/a/rdkit-pypi/rdkit-pypi/vcpkg/vcpkg install boost-python".split())
 
 
         extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
