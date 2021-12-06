@@ -26,6 +26,7 @@ jobs:
         with:
           runVcpkgInstall: true
 
+      - run: nuget install boost_python37-vc142 -Version 1.71.0
 
       - name: Install Python
         uses: actions/setup-python@v2
