@@ -417,7 +417,7 @@ setup(
     #         ),        
     # ],
     # cmdclass=dict(build_ext=BuildRDKit),
-    ext_modules=[CMakeExtension("rdkit-pypi")],
+    ext_modules=[CMakeExtension("rdkit-pypi", sourcedir='rdkit')],
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False,
 )
