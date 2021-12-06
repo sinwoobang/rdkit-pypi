@@ -298,13 +298,17 @@ class CMakeBuild(build_ext_orig):
 
         # Install boots for the correct python version
         # Need to replace "${CURRENT_INSTALLED_DIR}/include/python3.*" in the b2-options files
-        b2_options = 'D:/a/rdkit-pypi/rdkit-pypi/vcpkg/ports/boost-python/b2-options.cmake'
+        
+        b2_options = f"{os.environ['VCPKG_ROOT']}/ports/boost-python/b2-options.cmake"
         call(["sed", "-i", f'/file(GLOB python3_include_dir/c\file(GLOB python3_include_dir {get_paths()["include"]})', b2_options])
 
         # Call vcpkg remove and install
-        check_call("D:/a/rdkit-pypi/rdkit-pypi/vcpkg/vcpkg remove boost-python".split())
-        check_call("D:/a/rdkit-pypi/rdkit-pypi/vcpkg/vcpkg install boost-python".split())
-
+        check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install".split())
+        check_call(f"mv vcpkg.json vcpkg_back.json".split())
+        check_call(f"mv vcpkg_with_boost.json vcpkg.json".split())
+        check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install".split())
+        check_call(f"mv vcpkg.json vcpkg_with_boost.json ".split())
+        check_call(f"mv vcpkg_back.json vcpkg.json".split())
 
         extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
 
