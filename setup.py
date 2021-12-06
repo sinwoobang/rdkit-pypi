@@ -3,10 +3,11 @@ from setuptools.command.build_ext import build_ext as build_ext_orig
 from sysconfig import get_paths
 import os
 from subprocess import check_call, call, run, PIPE
+import subprocess
 import sys
 from sys import platform
 import shutil
-
+import re
 from pathlib import Path
 
 # get vcpkg path on Github
