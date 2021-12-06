@@ -386,8 +386,6 @@ class CMakeBuild(build_ext_orig):
         )
 
 
-
-
 setup(
     name="rdkit-pypi",
     version=f"2021.9.2.1",
@@ -419,7 +417,7 @@ setup(
     #         ),        
     # ],
     # cmdclass=dict(build_ext=BuildRDKit),
-    ext_modules=[CMakeExtension("rdkit")],
+    ext_modules=[CMakeExtension("rdkit-pypi")],
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False,
 )
