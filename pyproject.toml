@@ -18,7 +18,7 @@ build-backend = "setuptools.build_meta"
 
 [tool.cibuildwheel]
 
-build-verbosity = "0"
+build-verbosity = "2"
 
 build = "cp36-* cp37-* cp38-* cp39-* cp310-*"
 skip = "*-win32 *-manylinux_i686 cp310-win* *-musllinux*"
@@ -58,7 +58,6 @@ repair-wheel-command = [
 ]
 
 [tool.cibuildwheel.windows]
-before-all = ["mkdir C:\\libs"]
 
 before-build = [
     "pip install delvewheel",
