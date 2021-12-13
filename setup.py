@@ -303,12 +303,14 @@ class CMakeBuild(build_ext_orig):
         call(["sed", "-i", f'/file(GLOB python3_include_dir/c\file(GLOB python3_include_dir {get_paths()["include"]})', b2_options])
 
         # Call vcpkg remove and install
-        check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install".split())
+        # check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install".split())
         check_call(f"mv vcpkg.json vcpkg_back.json".split())
         check_call(f"mv vcpkg_with_boost.json vcpkg.json".split())
         check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install".split())
         check_call(f"mv vcpkg.json vcpkg_with_boost.json ".split())
         check_call(f"mv vcpkg_back.json vcpkg.json".split())
+        check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install".split())
+
 
         extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
 
