@@ -310,10 +310,17 @@ class CMakeBuild(build_ext_orig):
         cmd += [b2_options]
         check_call(cmd)
 
+        # replace version
         cmd = ["sed", "-i"]
-        cmd += [f'/string(REGEX REPLACE/c\    set(python3_version {python_version}))']
+        cmd += [f'/string(REGEX REPLACE/c\    set(python3_version "{python_version}"))']
         cmd += [b2_options]
         check_call(cmd)
+
+        cmd = ["sed", "-i"]
+        cmd += [f's,${CURRENT_INSTALLED_DIR}/lib,/usr,g']
+        cmd += [b2_options]
+        check_call(cmd)
+
 
 
         check_call(f"cat {b2_options}".split())
