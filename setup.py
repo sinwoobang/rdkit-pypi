@@ -313,6 +313,8 @@ class CMakeBuild(build_ext_orig):
         cmd = ["sed", "-i"]
         cmd += [f'/string(REGEX REPLACE/c\    set(python3_version {python_version}))']
         cmd += [b2_options]
+        check_call(cmd)
+
 
         check_call(f"cat {b2_options}".split())
         check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install".split())
