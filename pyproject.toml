@@ -62,8 +62,8 @@ repair-wheel-command = [
 before-build = [
     "pip install delvewheel",
     ## install correct-boost python version
-    "export b2_option=$VCPKG_ROOT/ports/boost-python/b2-options.cmake",
-    "export inc=$(python -c \"from sysconfig import get_paths;print(get_paths()['include'])\")",
+    "b2_option=$VCPKG_ROOT/ports/boost-python/b2-options.cmake",
+    "inc=$(python -c \"from sysconfig import get_paths;print(get_paths()['include'])\")",
     "echo $inc",
     "echo $b2_option",
     # "sed -i '/file(GLOB python3_include_dir/c\    file(GLOB python3_include_dir \"$inc\")' $b2_options ",
