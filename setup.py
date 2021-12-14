@@ -316,10 +316,10 @@ class CMakeBuild(build_ext_orig):
         cmd += [b2_options]
         check_call(cmd)
 
-        cmd = ["sed", "-i"]
-        cmd += [f's,${CURRENT_INSTALLED_DIR}/lib,/usr,g']
-        cmd += [b2_options]
-        check_call(cmd)
+        # cmd = ["sed", "-i"]
+        # cmd += [f's,${CURRENT_INSTALLED_DIR}/lib,/usr,g']
+        # cmd += [b2_options]
+        # check_call(cmd)
 
 
 
