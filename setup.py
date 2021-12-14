@@ -306,16 +306,9 @@ class CMakeBuild(build_ext_orig):
 
         # call(["sed", "-i", f'/file(GLOB python3_include_dir/c\file(GLOB python3_include_dir "{python_include_dir}")', b2_options])
     
-
-
         # Call vcpkg remove and install
-        # check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install".split())
         run(["ls", "-lsrta"],  stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        check_call(f"mv vcpkg.json vcpkg_back.json".split())
-        check_call(f"mv vcpkg_with_boost.json vcpkg.json".split())
         check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install".split())
-        check_call(f"mv vcpkg.json vcpkg_with_boost.json ".split())
-        check_call(f"mv vcpkg_back.json vcpkg.json".split())
         check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install".split())
 
 
