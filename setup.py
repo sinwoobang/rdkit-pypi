@@ -316,11 +316,12 @@ class CMakeBuild(build_ext_orig):
         cmd += [b2_options]
         check_call(cmd)
 
-        # cmd = ["sed", "-i"]
-        # cmd += [f's,${CURRENT_INSTALLED_DIR}/lib,/usr,g']
-        # cmd += [b2_options]
-        # check_call(cmd)
+        python_libs = Path(get_paths()["data"]) / 'lib'
 
+        cmd = ["sed", "-i"]
+        cmd += [f's,${{CURRENT_INSTALLED_DIR}}/lib,{towin(python_libs)},g']
+        cmd += [b2_options]
+        check_call(cmd)
 
 
         check_call(f"cat {b2_options}".split())
