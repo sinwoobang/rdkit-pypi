@@ -324,7 +324,7 @@ class CMakeBuild(build_ext_orig):
 
 
         check_call(f"cat {b2_options}".split())
-        check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install".split())
+        check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install --debug".split())
         check_call(f"mv {b2_options}.bak {b2_options}".split())
         
 
