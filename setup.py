@@ -312,7 +312,7 @@ class CMakeBuild(build_ext_orig):
 
         # replace version
         cmd = ["sed", "-i"]
-        cmd += [f'/string(REGEX REPLACE/c\    set(python3_version "{python_version}"))']
+        cmd += [f'/string(REGEX REPLACE/c\    set(python3_version "{python_version}")']
         cmd += [b2_options]
         check_call(cmd)
 
