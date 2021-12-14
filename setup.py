@@ -299,8 +299,8 @@ class CMakeBuild(build_ext_orig):
         # Install boots for the correct python version
         # Need to replace "${CURRENT_INSTALLED_DIR}/include/python3.*" in the b2-options files
         
-        b2_options = f"{os.environ['VCPKG_ROOT']}/ports/boost-python/b2-options.cmake"
-        call(["sed", "-i", f'/file(GLOB python3_include_dir/c\file(GLOB python3_include_dir {get_paths()["include"]})', b2_options])
+        # b2_options = f"{os.environ['VCPKG_ROOT']}/ports/boost-python/b2-options.cmake"
+        # call(["sed", "-i", f'/file(GLOB python3_include_dir/c\file(GLOB python3_include_dir {get_paths()["include"]})', b2_options])
 
         # Call vcpkg remove and install
         # check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install".split())

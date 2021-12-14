@@ -29,8 +29,8 @@
         "boost-static-assert",
         "boost-tuple",
         "boost-type-traits",
-        "boost-utility",
         "boost-python",
+        "boost-utility",
         "boost-vcpkg-helpers"
     ]
 }
