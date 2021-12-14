@@ -301,14 +301,19 @@ class CMakeBuild(build_ext_orig):
         
         b2_options = f"{os.environ['VCPKG_ROOT']}/ports/boost-python/b2-options.cmake"
         python_include_dir = Path(get_paths()["include"])
-        python_lib_dir = get_paths()["stdlib"]
+        python_lib_dir = Path(get_paths()["stdlib"])
+        python_version = ".".join(map(str, sys.version_info[0:2]))
         
         # install correct boost-python version
         cmd = ["sed", "-i.bak"]
         cmd += [f'/file(GLOB python3_include_dir/c\    file(GLOB python3_include_dir "{python_include_dir}")']
         cmd += [b2_options]
-
         check_call(cmd)
+
+        cmd = ["sed", "-i"]
+        cmd += [f'/string(REGEX REPLACE/c\    set(python3_version {python_version}))']
+        cmd += [b2_options]
+
         check_call(f"cat {b2_options}".split())
         check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install".split())
         check_call(f"mv {b2_options}.bak {b2_options}".split())
