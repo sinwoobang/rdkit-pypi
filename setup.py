@@ -318,8 +318,16 @@ class CMakeBuild(build_ext_orig):
 
         python_libs = Path(get_paths()["data"]) / 'libs'
 
+        
         cmd = ["sed", "-i"]
-        cmd += [f"'s,${{CURRENT_INSTALLED_DIR}}/lib,{towin(python_libs)},g'"]
+        # cmd += [f"'s,${{CURRENT_INSTALLED_DIR}}/lib,{towin(python_libs)},g'"]
+        cmd += ["'s,.*${CURRENT_INSTALLED_DIR}/lib.*,    using python : ${python3_version} ;,g'"]
+        cmd += [b2_options]
+        check_call(cmd)
+
+        cmd = ["sed", "-i"]
+        # cmd += [f"'s,${{CURRENT_INSTALLED_DIR}}/lib,{towin(python_libs)},g'"]
+        cmd += ["'s,.*${CURRENT_INSTALLED_DIR}/debug.*,,g'"]
         cmd += [b2_options]
         check_call(cmd)
 
