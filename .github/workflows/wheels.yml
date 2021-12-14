@@ -27,7 +27,7 @@ jobs:
 
       - name: install cmake and ninja
         run: |
-          python -m install cmake==3.22.1 ninja
+          python -m pip install cmake==3.22.1 ninja
 
       - name: Restore artifacts, or setup vcpkg
         uses: lukka/run-vcpkg@v10
