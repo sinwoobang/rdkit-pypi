@@ -316,7 +316,7 @@ class CMakeBuild(build_ext_orig):
         cmd += [b2_options]
         check_call(cmd)
 
-        python_libs = Path(get_paths()["data"]) / 'lib'
+        python_libs = Path(get_paths()["data"]) / 'libs'
 
         cmd = ["sed", "-i"]
         cmd += [f"'s,${{CURRENT_INSTALLED_DIR}}/lib,{towin(python_libs)},g'"]
