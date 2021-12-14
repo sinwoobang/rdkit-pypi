@@ -304,6 +304,7 @@ class CMakeBuild(build_ext_orig):
 
         # Call vcpkg remove and install
         # check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install".split())
+        run(["ls", "-lsrta"], capture_output=True)
         check_call(f"mv vcpkg.json vcpkg_back.json".split())
         check_call(f"mv vcpkg_with_boost.json vcpkg.json".split())
         check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install".split())
