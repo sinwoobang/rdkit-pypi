@@ -320,16 +320,16 @@ class CMakeBuild(build_ext_orig):
 
         
         cmd = ["sed", "-i"]
-        # cmd += [f"'s,${{CURRENT_INSTALLED_DIR}}/lib,{towin(python_libs)},g'"]
-        cmd += ["'s,.*${CURRENT_INSTALLED_DIR}/lib.*,    using python : ${python3_version} ;,g'"]
+        cmd += [f"'s,${{CURRENT_INSTALLED_DIR}}/lib,{towin(python_libs)},g'"]
+        # cmd += ["'s,.*${CURRENT_INSTALLED_DIR}/lib.*,    using python : ${python3_version} ;,g'"]
         cmd += [b2_options]
         check_call(cmd)
 
-        cmd = ["sed", "-i"]
-        # cmd += [f"'s,${{CURRENT_INSTALLED_DIR}}/lib,{towin(python_libs)},g'"]
-        cmd += ["'s,.*${CURRENT_INSTALLED_DIR}/debug.*,,g'"]
-        cmd += [b2_options]
-        check_call(cmd)
+        # cmd = ["sed", "-i"]
+        # # cmd += [f"'s,${{CURRENT_INSTALLED_DIR}}/lib,{towin(python_libs)},g'"]
+        # cmd += ["'s,.*${CURRENT_INSTALLED_DIR}/debug.*,,g'"]
+        # cmd += [b2_options]
+        # check_call(cmd)
 
 
         check_call(f"cat {b2_options}".split())
