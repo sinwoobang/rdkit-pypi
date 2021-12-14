@@ -306,7 +306,7 @@ class CMakeBuild(build_ext_orig):
         
         # install correct boost-python version
         cmd = ["sed", "-i.bak"]
-        cmd += [f'/file(GLOB python3_include_dir/c\    file(GLOB python3_include_dir "{python_include_dir}")']
+        cmd += [f'/file(GLOB python3_include_dir/c\    file(GLOB python3_include_dir "{towin(python_include_dir)}")']
         cmd += [b2_options]
         check_call(cmd)
 
