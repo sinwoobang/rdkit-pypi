@@ -19,17 +19,22 @@ jobs:
         with:
           submodules: true
       
-      - uses: lukka/get-cmake@latest
+      # - uses: lukka/get-cmake@latest
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+
+      - name: install cmake and ninja
+        run: |
+          python -m install cmake==3.22.1 ninja
 
       - name: Restore artifacts, or setup vcpkg
         uses: lukka/run-vcpkg@v10
         with:
           runVcpkgInstall: true
 
-      - name: Install Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.7'
+
 
 
       - name: Build wheels
