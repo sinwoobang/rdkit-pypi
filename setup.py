@@ -300,7 +300,7 @@ class CMakeBuild(build_ext_orig):
         # Need to replace "${CURRENT_INSTALLED_DIR}/include/python3.*" in the b2-options files
         
         b2_options = f"{os.environ['VCPKG_ROOT']}/ports/boost-python/b2-options.cmake"
-        python_include_dir = get_paths()["include"]
+        python_include_dir = Path(get_paths()["include"])
         python_lib_dir = get_paths()["stdlib"]
         
         # install correct boost-python version
