@@ -303,13 +303,15 @@ class CMakeBuild(build_ext_orig):
         python_include_dir = get_paths()["include"]
         python_lib_dir = get_paths()["stdlib"]
         
+        # install correct boost-python version
+        cmd = ["sed", "-i.bak"]
+        cmd += [f'/file(GLOB python3_include_dir/c\file(GLOB python3_include_dir "{python_include_dir}")']
+        cmd += [b2_options]
 
-        # call(["sed", "-i", f'/file(GLOB python3_include_dir/c\file(GLOB python3_include_dir "{python_include_dir}")', b2_options])
-    
-        # Call vcpkg remove and install
-        run(["ls", "-lsrta"],  stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        check_call(cmd)
         check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install".split())
-        check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install".split())
+        check_call(f"mv {b2_options}.bak {b2_options}".split())
+        
 
 
         extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
