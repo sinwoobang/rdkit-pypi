@@ -66,5 +66,5 @@ before-build = [
 repair-wheel-command = ["delvewheel show -v --add-path C:\\libs {wheel}", "delvewheel repair -v  --add-path C:\\libs -w {dest_dir} {wheel}"]
 
 [tool.cibuildwheel.windows.environment]
-CMAKE_ARGS = '-DBoost_DEBUG=ON -DBoost_NO_SYSTEM_PATHS=ON -DRDK_BUILD_PYTHON_WRAPPERS=ON -DRDK_BUILD_INCHI_SUPPORT=ON -DRDK_BUILD_AVALON_SUPPORT=ON -DRDK_BUILD_YAEHMOP_SUPPORT=ON -DRDK_BUILD_CAIRO_SUPPORT=ON -DCMAKE_TOOLCHAIN_FILE=D:\\a\\rdkit-pypi\\rdkit-pypi\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake'
+CMAKE_ARGS = '-DCMAKE_TOOLCHAIN_FILE="D:\\a\\rdkit-pypi\\rdkit-pypi\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake" -DBoost_DEBUG=ON -DBoost_NO_SYSTEM_PATHS=ON -DRDK_BUILD_PYTHON_WRAPPERS=ON -DRDK_BUILD_INCHI_SUPPORT=ON -DRDK_BUILD_AVALON_SUPPORT=ON -DRDK_BUILD_YAEHMOP_SUPPORT=ON -DRDK_BUILD_CAIRO_SUPPORT=ON'
 
