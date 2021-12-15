@@ -421,10 +421,6 @@ class CMakeBuild(build_ext_orig):
         if not os.path.exists(self.build_temp):
             os.makedirs(self.build_temp)
 
-        # update cmake
-        subprocess.check_call(
-            ["python", "-m", "pip", "install", "-U", "cmake"]
-        )
         subprocess.check_call(
             ["cmake", ext.sourcedir] + cmake_args, cwd=self.build_temp
         )
