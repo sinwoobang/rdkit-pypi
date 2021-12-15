@@ -422,6 +422,9 @@ class CMakeBuild(build_ext_orig):
             os.makedirs(self.build_temp)
 
         subprocess.check_call(
+            ["head" , "D:\\a\\rdkit-pypi\\rdkit-pypi\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake"]
+            )
+        subprocess.check_call(
             ["cmake", ext.sourcedir] + cmake_args, cwd=self.build_temp
         )
         subprocess.check_call(
