@@ -333,10 +333,10 @@ class CMakeBuild(build_ext_orig):
 
 
         check_call(f"cat {b2_options}".split())
-        check_call(f"{os.environ['VCPKG_ROOT']}/vcpkg install".split())
+        vcpkg_cmd = [f"{os.environ['VCPKG_ROOT']}/vcpkg", "install", "--recurse", "--clean-after-build", "--x-install-root", "D:\\a\\rdkit-pypi\\b\\vcpkg_installed" , "--triplet", "x64-windows"]
+        check_call(vcpkg_cmd)
         check_call(f"mv {b2_options}.bak {b2_options}".split())
         
-
 
         extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
 
@@ -421,9 +421,6 @@ class CMakeBuild(build_ext_orig):
         if not os.path.exists(self.build_temp):
             os.makedirs(self.build_temp)
 
-        subprocess.check_call(
-            ["head" , "D:\\a\\rdkit-pypi\\rdkit-pypi\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake"]
-            )
         subprocess.check_call(
             ["cmake", ext.sourcedir] + cmake_args, cwd=self.build_temp
         )
