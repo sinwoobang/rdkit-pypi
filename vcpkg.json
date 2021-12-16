@@ -9,6 +9,8 @@
         "eigen3",
         "boost-python",
         "boost-iostreams",
-        "boost-flyweight"
+        "boost-flyweight",
+        "boost-system",
+        "boost-serialization"
     ]
 }
