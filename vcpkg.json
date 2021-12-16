@@ -8,6 +8,7 @@
         "cairo",
         "eigen3",
         "boost-python",
-        "boost-iostreams"
+        "boost-iostreams",
+        "boost-flyweight"
     ]
 }
