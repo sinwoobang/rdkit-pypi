@@ -418,6 +418,8 @@ class CMakeBuild(build_ext_orig):
                 # CMake 3.12+ only.
                 build_args += [f"-j{self.parallel}"]
 
+        self.build_temp = 'build'
+        
         if not os.path.exists(self.build_temp):
             os.makedirs(self.build_temp)
 
