@@ -66,5 +66,5 @@ before-build = [
 repair-wheel-command = ["delvewheel show -v --add-path C:\\libs {wheel}", "delvewheel repair -v  --add-path C:\\libs -w {dest_dir} {wheel}"]
 
 [tool.cibuildwheel.windows.environment]
-CMAKE_ARGS = '-DCMAKE_TOOLCHAIN_FILE=D:\\a\\rdkit-pypi\\rdkit-pypi\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows -DBoost_DEBUG=ON -DBoost_NO_SYSTEM_PATHS=ON -DRDK_BUILD_PYTHON_WRAPPERS=ON -DRDK_BUILD_INCHI_SUPPORT=ON -DRDK_BUILD_AVALON_SUPPORT=ON -DRDK_BUILD_YAEHMOP_SUPPORT=ON -DRDK_BUILD_CAIRO_SUPPORT=ON'
+CMAKE_ARGS = '-DCMAKE_TOOLCHAIN_FILE=D:\\a\\rdkit-pypi\\rdkit-pypi\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake -DVCPKG_INSTALLED_DIR=D:\\a\\rdkit-pypi\\b\\vcpkg_installed -DBoost_DEBUG=ON -DBoost_NO_SYSTEM_PATHS=ON -DRDK_BUILD_PYTHON_WRAPPERS=ON -DRDK_BUILD_INCHI_SUPPORT=ON -DRDK_BUILD_AVALON_SUPPORT=ON -DRDK_BUILD_YAEHMOP_SUPPORT=ON -DRDK_BUILD_CAIRO_SUPPORT=ON'
 VCPKG_DEFAULT_TRIPLET = 'x64-windows'
