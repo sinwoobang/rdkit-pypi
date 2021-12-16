@@ -12,6 +12,8 @@
         "boost-flyweight",
         "boost-system",
         "boost-serialization",
-        "boost-crc"
+        "boost-crc",
+        "boost-multiprecision",
+        "boost-assign"
     ]
 }
