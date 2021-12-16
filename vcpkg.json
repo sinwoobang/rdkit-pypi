@@ -11,6 +11,7 @@
         "boost-iostreams",
         "boost-flyweight",
         "boost-system",
-        "boost-serialization"
+        "boost-serialization",
+        "boost-crc"
     ]
 }
