@@ -15,6 +15,7 @@
         "boost-crc",
         "boost-multiprecision",
         "boost-assign",
-        "boost-multi-array"
+        "boost-multi-array",
+        "boost-program-options"
     ]
 }
