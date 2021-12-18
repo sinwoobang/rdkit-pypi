@@ -110,22 +110,20 @@ class CMakeBuild(build_ext_orig):
         # In this example, we pass in the version to C++. You might not need to.
         cmake_args += [f"-DEXAMPLE_VERSION_INFO={self.distribution.get_version()}"]
 
-
-        self.spawn(['echo', f"{self.compiler.compiler_type}"])
-
         if self.compiler.compiler_type != "msvc":
             # Using Ninja-build since it a) is available as a wheel and b)
             # multithreads automatically. MSVC would require all variables be
             # exported for Ninja to pick it up, which is a little tricky to do.
             # Users can override the generator with CMAKE_GENERATOR in CMake
             # 3.15+.
-            if not cmake_generator:
-                try:
-                    import ninja  # noqa: F401
+            cmake_args += ["-GNinja"]
+            # if not cmake_generator:
+            #     try:
+            #         import ninja  # noqa: F401
 
-                    cmake_args += ["-GNinja"]
-                except ImportError:
-                    pass
+            #         cmake_args += ["-GNinja"]
+            #     except ImportError:
+            #         pass
 
         else:
 
