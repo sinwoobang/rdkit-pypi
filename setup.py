@@ -93,6 +93,9 @@ class CMakeBuild(build_ext_orig):
         # Can be set with Conda-Build, for example.
         cmake_generator = os.environ.get("CMAKE_GENERATOR", "")
 
+        # Install to `install` path
+        install_path = Path(extdir) / 'install'
+
         # Set Python_EXECUTABLE instead if you use PYBIND11_FINDPYTHON
         # EXAMPLE_VERSION_INFO shows you how to pass a value into the C++ code
         # from Python.
@@ -100,6 +103,7 @@ class CMakeBuild(build_ext_orig):
             f"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={extdir}",
             f"-DPYTHON_EXECUTABLE={sys.executable}",
             f"-DCMAKE_BUILD_TYPE={cfg}",  # not used on MSVC, but no harm
+            f"-DCMAKE_INSTALL_PREFIX={install_path}",
         ]
         build_args = []
         # Adding CMake arguments set as environment variable
@@ -166,11 +170,19 @@ class CMakeBuild(build_ext_orig):
         if not os.path.exists(self.build_temp):
             os.makedirs(self.build_temp)
 
+        # configure
         subprocess.check_call(
             ["cmake", ext.sourcedir] + cmake_args, cwd=self.build_temp
         )
+
+        # build
         subprocess.check_call(
             ["cmake", "--build", "."] + build_args, cwd=self.build_temp
+        )
+
+        # Install
+        subprocess.check_call(
+            ["cmake", "--install", "."] + build_args, cwd=self.build_temp
         )
 
 
