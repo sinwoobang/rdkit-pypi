@@ -198,7 +198,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=find_packages('rdkit/rdkit', include=['**']),
-    package_dir={"": "rdkit/rdkit"}
+    package_dir={"": "rdkit/rdkit"},
     include_package_data=True,  
     install_requires=[
           'numpy>=1.19',
