@@ -10,9 +10,6 @@ import shutil
 import re
 from pathlib import Path
 
-# get vcpkg path on Github
-vcpkg_path = Path('C:/vcpkg')
-
 
 def towin(pt: Path):
     """Returns a windows path from a Path object"""
@@ -200,7 +197,9 @@ setup(
     license="BSD-3-Clause",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    packages=find_packages(),
+    packages=find_packages('rdkit/rdkit', include=['**']),
+    package_dir={"": "rdkit/rdkit"}
+    include_package_data=True,  
     install_requires=[
           'numpy>=1.19',
       ],
