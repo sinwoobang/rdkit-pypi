@@ -91,13 +91,14 @@ class CMakeBuild(build_ext_orig):
         cmake_generator = os.environ.get("CMAKE_GENERATOR", "")
 
         # Install to `install` path
-        install_path = Path(extdir) / 'install'
-
+        install_path = Path(extdir) 
+        
+        lib_dir = extdir / ".." / "lib"
         # Set Python_EXECUTABLE instead if you use PYBIND11_FINDPYTHON
         # EXAMPLE_VERSION_INFO shows you how to pass a value into the C++ code
         # from Python.
         cmake_args = [
-            f"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={extdir}",
+            f"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={lib_dir}",
             f"-DPYTHON_EXECUTABLE={sys.executable}",
             f"-DCMAKE_BUILD_TYPE={cfg}",  # not used on MSVC, but no harm
             f"-DCMAKE_INSTALL_PREFIX={install_path}",
@@ -143,7 +144,7 @@ class CMakeBuild(build_ext_orig):
             # Multi-config generators have a different way to specify configs
             if not single_config:
                 cmake_args += [
-                    f"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY_{cfg.upper()}={extdir}"
+                    f"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY_{cfg.upper()}={lib_dir}"
                 ]
                 build_args += ["--config", cfg]
 

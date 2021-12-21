@@ -64,8 +64,8 @@ before-build = [
 ]
 
 repair-wheel-command = [
-    "delvewheel show -v --add-path {package} {wheel}",
-    "delvewheel repair -v  --add-path {package} -w {dest_dir} {wheel}"
+    "delvewheel show -v --add-path build/lib {wheel}",
+    "delvewheel repair -v  --add-path build/lib -w {dest_dir} {wheel}"
     ]
 
 [tool.cibuildwheel.windows.environment]
