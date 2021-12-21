@@ -63,7 +63,10 @@ before-build = [
     "pip install delvewheel",
 ]
 
-repair-wheel-command = ["delvewheel show -v --add-path C:\\libs {wheel}", "delvewheel repair -v  --add-path C:\\libs -w {dest_dir} {wheel}"]
+repair-wheel-command = [
+    "delvewheel show -v --add-path {package} {wheel}",
+    "delvewheel repair -v  --add-path {package} -w {dest_dir} {wheel}"
+    ]
 
 [tool.cibuildwheel.windows.environment]
 CMAKE_ARGS="""
@@ -80,5 +83,5 @@ CMAKE_ARGS="""
 -DRDK_BUILD_CAIRO_SUPPORT=ON \
 \
 """
-# -DRDK_INSTALL_INTREE=OFF \
+
 
