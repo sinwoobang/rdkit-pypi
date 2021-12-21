@@ -92,8 +92,8 @@ class CMakeBuild(build_ext_orig):
 
         # Install to `install` path
         install_path = Path(extdir) 
-        
-        lib_dir = extdir / ".." / "lib"
+
+        lib_dir = Path(extdir) / ".." / "lib"
         # Set Python_EXECUTABLE instead if you use PYBIND11_FINDPYTHON
         # EXAMPLE_VERSION_INFO shows you how to pass a value into the C++ code
         # from Python.
