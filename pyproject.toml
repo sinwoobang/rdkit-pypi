@@ -49,7 +49,7 @@ before-all = [
     ]
 
 before-build = [
-    "pip install delocate==0.8.2"
+    "pip install delocate==0.10.2"
     ]
 
 repair-wheel-command = [
