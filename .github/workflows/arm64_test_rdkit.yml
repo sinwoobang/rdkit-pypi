@@ -1,5 +1,5 @@
 
-name: [arm64] Test rdkit-pypi from PyPi
+name: Test arm64 rdkit-pypi from PyPi
 
 on:
   workflow_dispatch:

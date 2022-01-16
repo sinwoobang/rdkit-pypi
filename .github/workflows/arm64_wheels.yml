@@ -1,5 +1,5 @@
 
-name: [arm64] Build RDKit platform wheels
+name: Build RDKit arm64 platform wheel
 
 # Build on every branch push, tag push, and pull request change:
 on:
