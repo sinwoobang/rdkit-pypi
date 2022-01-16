@@ -1,0 +1,33 @@
+
+name: [arm64] Test rdkit-pypi from PyPi
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build_wheels:
+    name: Test rdkit-pypi from pypi
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-11]
+        python: ['3.7', '3.8', '3.9']
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        name: Install Python
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install from PyPi
+        run: |
+          python --version
+          python -m ensurepip --upgrade
+          python -m pip install rdkit-pypi
+
+      - name: Run tests
+        run: |
+          python -m pip install pytest
+          pytest --exitfirst --verbose --failed-first

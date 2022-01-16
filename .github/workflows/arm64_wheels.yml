@@ -1,0 +1,29 @@
+
+name: [arm64] Build RDKit platform wheels
+
+# Build on every branch push, tag push, and pull request change:
+on:
+  workflow_dispatch:
+
+jobs:
+  build_wheels:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-11]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        name: Install Python
+        with:
+          python-version: '3.7'
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.2.2
+
+      - uses: actions/upload-artifact@v2
+        with:
+          path: ./wheelhouse/*.whl
